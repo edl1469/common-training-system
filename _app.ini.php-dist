@@ -1,0 +1,70 @@
+;<?php die();
+;/* This should not be called directly and displayed as PHP.
+;   IMPORTANT : Make sure to rename this file to _webapp.ini.php
+;
+[common]
+appdir          = "folder_where_files_located"
+appname         = "The Group Name"
+assetsdir       = "folder_name"
+externalwebroot = "/path/to/group/pages/"
+localdocroot    = "/path/to/webroot"
+mailaddress     = "emailaddress"
+parentdir       = "folder_containing_assetsdir_and_appdir"
+guifile         = "prepended_gui_file_string-"
+
+[development]
+apphost      = "localhost"
+externalhost = "hostname"
+mysqlusr     = "mysql_username"
+mysqlpwd     = "mysql_password"
+mysqlhst     = "mysql_hostname"
+mysqldbs     = "mysql_database"
+mysqliusr    = "mysqli_username"
+mysqlipwd    = "mysqli_password"
+mysqlihst    = "mysqli_hostname"
+mysqliprt    = "mysqli_port"
+mysqlidbs    = "mysqli_database"
+oracleusr    = "oracle_username"
+oraclepwd    = "oracle_password"
+oraclehst    = "oracle_hostname"
+oracleprt    = "oracle_port"
+oracledbs    = "oracle_database"
+
+[testing]
+apphost      = "hostname"
+externalhost = "hostname"
+mysqlusr     = "mysql_username"
+mysqlpwd     = "mysql_password"
+mysqlhst     = "mysql_hostname"
+mysqldbs     = "mysql_database"
+mysqliusr    = "mysqli_username"
+mysqlipwd    = "mysqli_password"
+mysqlihst    = "mysqli_hostname"
+mysqliprt    = "mysqli_port"
+mysqlidbs    = "mysqli_database"
+oracleusr    = "oracle_username"
+oraclepwd    = "oracle_password"
+oraclehst    = "oracle_hostname"
+oracleprt    = "oracle_port"
+oracledbs    = "oracle_database"
+
+[production]
+apphost      = "hostname"
+externalhost = "hostname"
+mysqlusr     = "mysql_username"
+mysqlpwd     = "mysql_password"
+mysqlhst     = "mysql_hostname"
+mysqldbs     = "mysql_database"
+mysqliusr    = "mysqli_username"
+mysqlipwd    = "mysqli_password"
+mysqlihst    = "mysqli_hostname"
+mysqliprt    = "mysqli_port"
+mysqlidbs    = "mysqli_database"
+oracleusr    = "oracle_username"
+oraclepwd    = "oracle_password"
+oraclehst    = "oracle_hostname"
+oracleprt    = "oracle_port"
+oracledbs    = "oracle_database"
+
+;*/
+;?>
