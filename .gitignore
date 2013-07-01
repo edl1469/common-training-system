@@ -1,6 +1,8 @@
 # Our Config Files #
 ####################
 *_*.ini.php
+.htaccess
+.htpasswd
 
 # Aptana Workspace #
 ####################

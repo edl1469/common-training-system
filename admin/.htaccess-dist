@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "<GroupName> Admin Interface"
+AuthUserFile /complete/path/to/parent/group/admin/.htpasswd
+Require valid-user
+
