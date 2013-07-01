@@ -16,11 +16,11 @@
  /**
  * Set constants according to environment.
  */
-define('MYSQLI_SVR', $cfg_app[ENVIRONMENT]['mysqlihst']);
-define('MYSQLI_PRT', $cfg_app[ENVIRONMENT]['mysqliprt']);
-define('MYSQLI_USR', $cfg_app[ENVIRONMENT]['mysqliusr']);
-define('MYSQLI_PWD', $cfg_app[ENVIRONMENT]['mysqlipwd']);
-define('MYSQLI_DBS', $cfg_app[ENVIRONMENT]['mysqlidbs']);
+define('MYSQLI_SVR', $config_app[ENVIRONMENT]['mysqlihst']);
+define('MYSQLI_PRT', $config_app[ENVIRONMENT]['mysqliprt']);
+define('MYSQLI_USR', $config_app[ENVIRONMENT]['mysqliusr']);
+define('MYSQLI_PWD', $config_app[ENVIRONMENT]['mysqlipwd']);
+define('MYSQLI_DBS', $config_app[ENVIRONMENT]['mysqlidbs']);
 
 /**
  * Host connection handle.

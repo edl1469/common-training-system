@@ -16,10 +16,10 @@
  /**
  * Set constants according to environment.
  */
-define('MYSQL_SVR', $cfg_app[ENVIRONMENT]['mysqlhst']);
-define('MYSQL_USR', $cfg_app[ENVIRONMENT]['mysqlusr']);
-define('MYSQL_PWD', $cfg_app[ENVIRONMENT]['mysqlpwd']);
-define('MYSQL_DBS', $cfg_app[ENVIRONMENT]['mysqldbs']);
+define('MYSQL_SVR', $config_app[ENVIRONMENT]['mysqlhst']);
+define('MYSQL_USR', $config_app[ENVIRONMENT]['mysqlusr']);
+define('MYSQL_PWD', $config_app[ENVIRONMENT]['mysqlpwd']);
+define('MYSQL_DBS', $config_app[ENVIRONMENT]['mysqldbs']);
 
 /**
  * Host connection handle.
