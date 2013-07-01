@@ -1,5 +1,11 @@
-# WDC Project Specific #
-########################
+# Our Config Files #
+####################
+*_*.ini.php
+.htaccess
+.htpasswd
+
+# Aptana Workspace #
+####################
 .project
 .settings/
 
