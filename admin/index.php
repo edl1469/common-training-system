@@ -28,7 +28,7 @@ if ($mysqli->connect_error) {
     $html .= "<link href='https://daf.csulb.edu/css/main_page.css' rel='stylesheet' type='text/css' />"
             ."<style> .colA, .colB { width: 45%; } .colB { margin-left: 2em; } </style>";
     $html .= file_get_contents(CHUNK2);
-    $html .= BACKLINK_ADMIN."<h1>".NAME_GROUP." Control Panel</h1>";
+    $html .= "<h1>".NAME_GROUP." Control Panel</h1>";
 
     $html .= "<div class='colA'>
       	<h2>Enrollment Management</h2>
