@@ -12,9 +12,9 @@ The CTS is a web application that manages workshop display tasks and registratio
 1. If not existing, create a Parent directory off of the host web root.
 2. If not existing, create a Shared directory in the Parent and copy all **Common Training Assets (CTA)** project files into it.
 3. Create a Group directory in the Parent and copy all **CTS** project files and directories in.
-4. Rename the configuration file, by erasing the "-dist" string from the file extension.
+4. Make a copy of the configuration file and remove the "-dist" string from the file extension.
 5. Replace all configuration string place-holder values with the correct values.
-6. Rename the two basic HTTP authentication files, by erasing the "-dist" string from the file name.
+6. Make copies of the two basic HTTP authentication files, removing the "-dist" string from the file names.
 7. Follow the instructions to [prepare basic HTTP authentication](http://httpd.apache.org/docs/2.2/programs/htpasswd.html) and user name(s) and password(s) to the *.htpasswd* file.
 8. Alter the contents of the *.htaccess* file to better reflect the application identity.
 
