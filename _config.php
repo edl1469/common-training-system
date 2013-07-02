@@ -53,10 +53,10 @@ define('ENVIRONMENT', apache_getenv("HTTPD_ENV"));
  * The order in which these are created IS important.
  */
 $config_app = parse_ini_file("_app.ini.php", true);
-define('DIR',            '/'.$config_app['common']['host']);
+define('DIR',            '/'.$config_app['common']['appdir']);
 define('PATH_PARENT',    $config_app['common']['localdocroot']."/".$config_app['common']['parentdir']);
 define('PATH_APP',       PATH_PARENT.DIR);
-define('PATH_COMMON',    PATH_PARENT.'/common');
+define('PATH_COMMON',    PATH_PARENT.'/'.$config_app['common']['assetsdir']);
 define('PATH_GROUP',     $config_app['common']['externalwebroot']);
 define('NAME_GROUP',     $config_app['common']['appname']);
 define('APP_HOST',       'http://'.$config_app[ENVIRONMENT]['apphost']);

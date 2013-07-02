@@ -16,11 +16,11 @@
  /**
  * Set constants according to environment.
  */
-define('ORACLE_SVR', $cfg_app[ENVIRONMENT]['oraclehst']);
-define('ORACLE_PRT', $cfg_app[ENVIRONMENT]['oracleprt']);
-define('ORACLE_USR', $cfg_app[ENVIRONMENT]['oracleusr']);
-define('ORACLE_PWD', $cfg_app[ENVIRONMENT]['oraclepwd']);
-define('ORACLE_DBS', $cfg_app[ENVIRONMENT]['oracledbs']);
+define('ORACLE_SVR', $config_app[ENVIRONMENT]['oraclehst']);
+define('ORACLE_PRT', $config_app[ENVIRONMENT]['oracleprt']);
+define('ORACLE_USR', $config_app[ENVIRONMENT]['oracleusr']);
+define('ORACLE_PWD', $config_app[ENVIRONMENT]['oraclepwd']);
+define('ORACLE_DBS', $config_app[ENVIRONMENT]['oracledbs']);
 
 /**
  * Host connection handle.

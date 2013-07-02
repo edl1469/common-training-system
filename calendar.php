@@ -92,7 +92,7 @@ if (!$mysql_connect) {
         $html .= "<div class='prev_next'><h2>{$month_name} {$year}</h2><p>{$next_link} {$prev_link}</p></div>";
 
         // Print remainder of calendar
-        $html .= "<p>These are all of the courses currently scheduled this month. You can also see these in a <a href='index.php{$append}'>list view</a>.</p>";
+        $html .= "<p>These are all of the courses currently scheduled this month. You can also see these in a <a href='list.php{$append}'>list view</a>.</p>";
         $html .= "<form id='calForm{$calcount}' name='calForm{$calcount}' method='post' action='#'>";
         $html .= "<table class='clearit' summary='Reporting Calendar for {$month_name}' id='cal{$calcount}'>";
         $html .= '<thead><tr><th scope="col" class="small_col">Sunday</th><th scope="col">Monday</th><th scope="col">Tuesday</th><th scope="col">Wednesday</th><th scope="col">Thursday</th><th scope="col">Friday</th><th scope="col" class="small_col">Saturday</th></tr></thead><tbody>';
