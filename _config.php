@@ -71,3 +71,8 @@ define('CHUNK1',         PATH_COMMON.'/'.$config_app['common']['guifile'].'1.php
 define('CHUNK2',         PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
 define('CHUNK3',         PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
 define('CHUNK4',         PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
+
+/**
+ * Sets the default timezone used by all date/time functions
+ */
+date_default_timezone_set('America/Los_Angeles');
