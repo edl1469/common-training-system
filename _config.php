@@ -63,7 +63,7 @@ define('APP_HOST',       'http://'.$config_app[ENVIRONMENT]['apphost']);
 define('URL_PARENT',     APP_HOST."/".$config_app['common']['parentdir']);
 define('URL_APP',        URL_PARENT.DIR);
 define('URL_COMMON',     URL_PARENT."/".$config_app['common']['assetsdir']);
-define('URL_GROUP',      'http://'.$config_app[ENVIRONMENT]['apphost'].PATH_GROUP);
+define('URL_GROUP',      'http://'.$config_app[ENVIRONMENT]['externalhost'].PATH_GROUP);
 define('BACKLINK_ADMIN', "<div id='back'><a href='".URL_APP."/admin/'>Return to Control Panel</a></div>");
 define('BACKLINK_APP',   "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>");
 define('MAIL_GROUP',     $config_app['common']['mailaddress']);
