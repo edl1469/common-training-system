@@ -18,11 +18,6 @@
 //
 
 /**
- * This controls whether the ASM is emailed when a user signs up for a workshop.
- */
-$config_alertASM = false;
-
-/**
  * This populates the administrative form's location select field, when creating a workshop.
  */
 $config_locations = array(
@@ -76,3 +71,8 @@ define('CHUNK4',         PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php
  * Sets the default timezone used by all date/time functions
  */
 date_default_timezone_set('America/Los_Angeles');
+
+/**
+ * Does ASM get emailed when a user signs up for a workshop? Set in _app.ini.php file.
+ */
+$config_alertASM = (boolean) $config_app['common']['alertasm'];

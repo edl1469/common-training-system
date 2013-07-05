@@ -1,8 +1,9 @@
 ;<?php die();
-;/* This should not be called directly and displayed as PHP.
-;   IMPORTANT : Make sure to rename this file to _webapp.ini.php
+;/* This should not be called directly nor displayed as PHP.
+;   IMPORTANT : Make sure to rename this file to _app.ini.php
 ;
 [common]
+alertasm        = "false"
 appdir          = "folder_where_files_located"
 appname         = "The Group Name"
 assetsdir       = "folder_name"
