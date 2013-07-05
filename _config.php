@@ -13,17 +13,6 @@
  * @link      http://daf.csulb.edu/
  */
 
- //
-// These configuration settings SHOULD be edited.
-//
-
-/**
- * This populates the administrative form's location select field, when creating a workshop.
- */
-$config_locations = array(
-    'BLDG-RM' => 'Training Room Name, BLDG-RM',
-);
-
 //
 // The configuration settings below SHOULD NOT require editing.
 //

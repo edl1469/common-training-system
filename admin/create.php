@@ -33,11 +33,11 @@ if ($mysqli->connect_error) {
 
     // Prepare location list for form.
     $locationlist = "<option value=''>Select a Location</option>";
-
-    // $config_locations variable now defined in _config.php
-    foreach ($config_locations as $k => $v) {
-        $locationlist .= "<option value='{$k}'>{$v}</option>";
+    $result       = $mysqli->query("SELECT * FROM location ORDER BY short_desc");
+    while ($row = $result->fetch_assoc()) {
+        $locationlist .= "<option value='{$row['short_desc']}'>{$row['long_desc']}</option>";
     }
+    $result->free();
 
     // Prepare instructor list for form.
     $trainerlist = "<option value=''>Select a Trainer</option>";
