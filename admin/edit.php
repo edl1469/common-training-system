@@ -98,7 +98,7 @@ if ($mysqli->connect_error) {
                 <select name='location'>{$locationlist}</select></p>
             <p><label for='trainer'>Trainer</label>
                 <select name='trainer'>{$trainerlist}</select></p>
-            <p><label for='confirm'>Confirmation Email Text</label>
+            <p><label class='next_line' for='confirm'>Confirmation Email Text</label>
                 <textarea name='confirm' cols='60' rows='18'>{$crs_email}</textarea></p>
             <p><input type='submit' name='submit' id='submit' value='Update Course'>
                 <input type='hidden' name='tid' value='{$tid}'></p>
