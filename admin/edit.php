@@ -45,13 +45,13 @@ if ($mysqli->connect_error) {
 
     // Prepare location list for form.
     $locationlist = "<option value=''>Select a Location</option>";
-    $result       = $mysqli->query("SELECT * FROM location ORDER BY short_desc");
+    $result       = $mysqli->query("SELECT name FROM location ORDER BY name");
     while ($row = $result->fetch_assoc()) {
         $mark = '';
-        if ($crs_loc == $row['short_desc']) {
+        if ($crs_loc == $row['name']) {
             $mark = " selected='selected'";
         }
-        $locationlist .= "<option value='{$row['short_desc']}'{$mark}>{$row['long_desc']}</option>";
+        $locationlist .= "<option value='{$row['name']}'{$mark}>{$row['name']}</option>";
     }
     $result->free();
 
@@ -76,7 +76,7 @@ if ($mysqli->connect_error) {
     $html .= BACKLINK_ADMIN."<h1>Course Edit</h1>";
 
     $html .= "<form method='post' name='edit_form' action='edit_processing.php' onsubmit='return validateForm();'>\n";
-    $html .= "<p>Unless noted, all fields below are required.</p>\n
+    $html .= "<p>Unless noted, all fields below are required. <strong>IMPORTANT:</strong> If changing course <em>Location</em>, you must manually update the email content.</p>\n
             <div class='colA'><fieldset>
             <p><label class='next_line' for='short_desc'>Short Description</label><br />
                 <input name='short_desc' size='25' maxlength='50' value='{$crs_short}' /></p>

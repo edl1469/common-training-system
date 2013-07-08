@@ -33,9 +33,9 @@ if ($mysqli->connect_error) {
 
     // Prepare location list for form.
     $locationlist = "<option value=''>Select a Location</option>";
-    $result       = $mysqli->query("SELECT * FROM location ORDER BY short_desc");
+    $result       = $mysqli->query("SELECT name FROM location ORDER BY name");
     while ($row = $result->fetch_assoc()) {
-        $locationlist .= "<option value='{$row['short_desc']}'>{$row['long_desc']}</option>";
+        $locationlist .= "<option value='{$row['name']}'>{$row['name']}</option>";
     }
     $result->free();
 
