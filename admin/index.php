@@ -16,7 +16,7 @@
 // Set-up files.
 session_start();
 require_once '../_config.php';
-require_once '../_connect-mysql.php';
+require_once '../_connect-mysqli.php';
 
 // Stop and redirect, if any database resources are unavailable.
 if ($mysqli->connect_error) {

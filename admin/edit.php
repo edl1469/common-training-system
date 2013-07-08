@@ -45,15 +45,15 @@ if ($mysqli->connect_error) {
 
     // Prepare location list for form.
     $locationlist = "<option value=''>Select a Location</option>";
-
-    // $config_locations variable now defined in _config.php
-    foreach ($config_locations as $k => $v) {
+    $result       = $mysqli->query("SELECT name FROM location ORDER BY name");
+    while ($row = $result->fetch_assoc()) {
         $mark = '';
-        if ($crs_loc == $k) {
+        if ($crs_loc == $row['name']) {
             $mark = " selected='selected'";
         }
-        $locationlist .= "<option value='{$k}'{$mark}>{$v}</option>";
+        $locationlist .= "<option value='{$row['name']}'{$mark}>{$row['name']}</option>";
     }
+    $result->free();
 
     // Prepare instructor list for form.
     $trainerlist = "<option value=''>Select a Trainer</option>";
@@ -76,7 +76,7 @@ if ($mysqli->connect_error) {
     $html .= BACKLINK_ADMIN."<h1>Course Edit</h1>";
 
     $html .= "<form method='post' name='edit_form' action='edit_processing.php' onsubmit='return validateForm();'>\n";
-    $html .= "<p>Unless noted, all fields below are required.</p>\n
+    $html .= "<p>Unless noted, all fields below are required. <strong>IMPORTANT:</strong> If changing course <em>Location</em>, you must manually update the email content.</p>\n
             <div class='colA'><fieldset>
             <p><label class='next_line' for='short_desc'>Short Description</label><br />
                 <input name='short_desc' size='25' maxlength='50' value='{$crs_short}' /></p>
@@ -98,7 +98,7 @@ if ($mysqli->connect_error) {
                 <select name='location'>{$locationlist}</select></p>
             <p><label for='trainer'>Trainer</label>
                 <select name='trainer'>{$trainerlist}</select></p>
-            <p><label for='confirm'>Confirmation Email Text</label>
+            <p><label class='next_line' for='confirm'>Confirmation Email Text</label>
                 <textarea name='confirm' cols='60' rows='18'>{$crs_email}</textarea></p>
             <p><input type='submit' name='submit' id='submit' value='Update Course'>
                 <input type='hidden' name='tid' value='{$tid}'></p>

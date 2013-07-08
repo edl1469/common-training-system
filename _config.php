@@ -13,22 +13,6 @@
  * @link      http://daf.csulb.edu/
  */
 
- //
-// These configuration settings SHOULD be edited.
-//
-
-/**
- * This controls whether the ASM is emailed when a user signs up for a workshop.
- */
-$config_alertASM = false;
-
-/**
- * This populates the administrative form's location select field, when creating a workshop.
- */
-$config_locations = array(
-    'BLDG-RM' => 'Training Room Name, BLDG-RM',
-);
-
 //
 // The configuration settings below SHOULD NOT require editing.
 //
@@ -59,11 +43,11 @@ define('PATH_APP',       PATH_PARENT.DIR);
 define('PATH_COMMON',    PATH_PARENT.'/'.$config_app['common']['assetsdir']);
 define('PATH_GROUP',     $config_app['common']['externalwebroot']);
 define('NAME_GROUP',     $config_app['common']['appname']);
-define('APP_HOST',       'http://'.$config_app[ENVIRONMENT]['apphost']);
+define('APP_HOST',       'https://'.$config_app[ENVIRONMENT]['apphost']);
 define('URL_PARENT',     APP_HOST."/".$config_app['common']['parentdir']);
 define('URL_APP',        URL_PARENT.DIR);
 define('URL_COMMON',     URL_PARENT."/".$config_app['common']['assetsdir']);
-define('URL_GROUP',      'http://'.$config_app[ENVIRONMENT]['apphost'].PATH_GROUP);
+define('URL_GROUP',      'http://'.$config_app[ENVIRONMENT]['externalhost'].PATH_GROUP);
 define('BACKLINK_ADMIN', "<div id='back'><a href='".URL_APP."/admin/'>Return to Control Panel</a></div>");
 define('BACKLINK_APP',   "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>");
 define('MAIL_GROUP',     $config_app['common']['mailaddress']);
@@ -71,3 +55,13 @@ define('CHUNK1',         PATH_COMMON.'/'.$config_app['common']['guifile'].'1.php
 define('CHUNK2',         PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
 define('CHUNK3',         PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
 define('CHUNK4',         PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
+
+/**
+ * Sets the default timezone used by all date/time functions
+ */
+date_default_timezone_set('America/Los_Angeles');
+
+/**
+ * Does ASM get emailed when a user signs up for a workshop? Set in _app.ini.php file.
+ */
+$config_alertASM = (boolean) $config_app['common']['alertasm'];
