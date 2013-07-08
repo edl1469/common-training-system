@@ -43,7 +43,7 @@ define('PATH_APP',       PATH_PARENT.DIR);
 define('PATH_COMMON',    PATH_PARENT.'/'.$config_app['common']['assetsdir']);
 define('PATH_GROUP',     $config_app['common']['externalwebroot']);
 define('NAME_GROUP',     $config_app['common']['appname']);
-define('APP_HOST',       'http://'.$config_app[ENVIRONMENT]['apphost']);
+define('APP_HOST',       'https://'.$config_app[ENVIRONMENT]['apphost']);
 define('URL_PARENT',     APP_HOST."/".$config_app['common']['parentdir']);
 define('URL_APP',        URL_PARENT.DIR);
 define('URL_COMMON',     URL_PARENT."/".$config_app['common']['assetsdir']);
