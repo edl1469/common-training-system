@@ -59,12 +59,17 @@ if ($mysqli->connect_error) {
 
     // Start page code
     $html  = file_get_contents(CHUNK1);
+    $html .= "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n";
+    $html .= "<link href='".URL_COMMON."/css/select.css' rel='stylesheet' type='text/css' />\n";
+    $html .= "<script src='".URL_COMMON."/js/select.js' type='text/javascript'></script>\n";
     $html .= file_get_contents(CHUNK2);
     $html .= BACKLINK_ADMIN."<h1>Select Course to {$action}</h1>";
 
-    $html .= "<div id='success'>{$msg}</div><h2>Course List</h2><p>The courses listed are in the future {$range}.</p>";
-    $html .= "<form method='post' action='".strtolower($action).".php'><select name='course'>{$options}</select> &nbsp; ";
-    $html .= "<input type='submit' value='{$action}' name='submit' id='submit' style='margin-top: .5em;' /></form>";
+    $html .= "<div id='success'>{$msg}</div><h2>Course List</h2>";
+    $html .= "<p>The courses listed are in the future {$range}.</p>";
+    $html .= "<form name='select_form' method='post' action='".strtolower($action).".php' onsubmit='return validateForm();'>";
+    $html .= "<select name='course'>{$options}</select> &nbsp; ";
+    $html .= "<input type='submit' value='{$action}' name='submit' id='submit' /><div id='errorList'></div></form>";
     $html .= file_get_contents(CHUNK3);
     $html .= file_get_contents(CHUNK4);
 
