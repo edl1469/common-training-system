@@ -20,7 +20,8 @@ $html = '';
 if (ENVIRONMENT !== 'development') {
     header("Location: ".URL_GROUP);
 } else {
-    $html  = "<html><head><title>temp page</title></head><body><p>Temporary ".NAME_GROUP." page.</p><ul>";
+    $flag  = ($config_alertASM)? 'ON' : 'OFF';
+    $html  = "<html><head><title>temp page</title></head><body><p>Temporary ".NAME_GROUP." page. Flag is {$flag}.</p><ul>";
     $html .= "<li><a href='list.php'>List</a></li><li><a href='calendar.php'>Calendar</a></li>";
     $html .= "<li><a href='review.php'>Reservation</a></li></ul></body></html>";
 }
