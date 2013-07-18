@@ -24,17 +24,20 @@ if ($mysqli->connect_error) {
 } else {
 
     // Collect POST
+    $pretty_end   = $mysqli->real_escape_string($_POST['cetime'].' '.$_POST['cemeridian']);
+    $pretty_start = $mysqli->real_escape_string($_POST['cstime'].' '.$_POST['csmeridian']);
+
     $crs_date  = date("Y-m-d", strtotime($_POST['cdate']));
     $crs_detl  = $mysqli->real_escape_string($_POST['details']);
     $crs_email = $mysqli->real_escape_string($_POST['confirm']);
-    $crs_end   = $mysqli->real_escape_string($_POST['cetime']);
+    $crs_end   = date("G:i", strtotime($pretty_end));
     $crs_id    = $mysqli->real_escape_string($_POST['tid']);
     $crs_loc   = $mysqli->real_escape_string($_POST['location']);
     $crs_long  = $mysqli->real_escape_string($_POST['description']);
     $crs_priv  = (isset($_POST['private']))? 1: 0;
     $crs_seat  = (int) $_POST['seats'];
     $crs_short = $mysqli->real_escape_string($_POST['short_desc']);
-    $crs_start = $mysqli->real_escape_string($_POST['cstime']);
+    $crs_start = date("G:i", strtotime($pretty_start));
     $crs_trnr  = $mysqli->real_escape_string($_POST['trainer']);
 
     // Prepare and update new course.
