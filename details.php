@@ -33,13 +33,13 @@ if ($mysqli->connect_error) {
     $crs_date  = $row['TDate'];
     $crs_datef = date("l, F j, Y", strtotime($row['TDate']));
     $crs_detl  = $row['Details'];
-    $crs_end   = date("g:i a", strtotime($row['TEndTime']));
+    $crs_end   = date("g:i A", strtotime($row['TEndTime']));
     $crs_instr = $row['Trainer'];
     $crs_loc   = $row['Location'];
     $crs_name  = $row['Description'];
     $crs_priv  = $row['IsPrivate'];
     $crs_seats = $row['TSeats'];
-    $crs_start = date("g:i", strtotime($row['TStartTime']));
+    $crs_start = date("g:i A", strtotime($row['TStartTime']));
     $crs_waits = $row['TWait'];
     $result->free();
 

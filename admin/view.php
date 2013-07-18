@@ -35,7 +35,7 @@ if ($mysqli->connect_error) {
     $crs_loc   = $row['Location'];
     $crs_name  = $row['Description'];
     $crs_seats = $row['TSeats'];
-    $crs_start = date("g:i", strtotime($row['TStartTime']));
+    $crs_start = date("g:i A", strtotime($row['TStartTime']));
     $result->free();
 
 
