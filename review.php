@@ -49,7 +49,7 @@ if ($mysqli->connect_error) {
     $html  = file_get_contents(CHUNK1);
     $html .= "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />";
     $html .= file_get_contents(CHUNK2);
-    $html .= $back_link."<h1>Review Your Registrations</h1>";
+    $html .= $back_link."<h1>Manage Your Registrations</h1>";
 
     $html .= "<form action='review.php' method='post'>"
             ."<p>Enter your information to view your upcoming ".NAME_GROUP." registrations.</p><fieldset>"
