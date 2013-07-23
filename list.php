@@ -22,6 +22,7 @@ if ($mysqli->connect_error) {
     header("Location: resource-unavailable.php?err=MySQLi%20Connect");
 } else {
     $append     = (isset($_GET['admin'])) ? "?admin=true" : '';
+    $appendtoo  = (isset($_GET['admin'])) ? "&admin=true" : '';
     $back_link  = "<div id='back'>";
     $back_link .= (isset($_GET['admin']))
             ? "<a href='admin/index.php'>Return to Control Panel</a></div>"
@@ -57,7 +58,7 @@ if ($mysqli->connect_error) {
         while ($class = current($list)) {
             $courses .= '<h3>'.key($list).'</h3><ul>';
             foreach ($class as $event) {
-                $courses .= "<li><a href='details.php?id={$event['id']}'>{$event['date']}</a></li>";
+                $courses .= "<li><a href='details.php?id={$event['id']}{$appendtoo}'>{$event['date']}</a></li>";
             }
             $courses .= "</ul>\n";
             next($list);

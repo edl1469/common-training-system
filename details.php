@@ -21,7 +21,10 @@ require_once '_connect-mysqli.php';
 if ($mysqli->connect_error) {
     header("Location: resource-unavailable.php?err=MySQLi%20Connect");
 } else {
-    $back_link  = "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>";
+    $back_link  = "<div id='back'>";
+    $back_link .= (isset($_GET['admin']))
+            ? "<a href='admin/index.php'>Return to Control Panel</a></div>"
+            : "<a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>";
 
     // Collect GET
     $tid = $_GET['id'];
