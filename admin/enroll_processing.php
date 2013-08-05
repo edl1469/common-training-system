@@ -87,9 +87,11 @@ if ($mysqli->connect_error) {
             $parsed    = oci_parse($oracle, $query);
             $product   = oci_execute($parsed);
             if (!$product) {
-                //die('Could not execute: ' . oci_error());
+                $e = oci_error($parsed);
                 $h = "MIME-Version: 1.0\r\nFrom: training@csulb.edu";
-                mail('wdc@csulb.edu', 'Oracle View Error', "Could not connect: ".oci_error($parsed), $h);
+                $m = "Environment: ".ENVIRONMENT."\nHost: ".ORACLE_SVR."\nDB: ".ORACLE_DBS."\nOCI Error: ".htmlentities($e['message']);
+                $s = "Oracle View Error: ".DIR;
+                mail('wdc@csulb.edu', $s, $m, $h);
             } else {
                 $row       = oci_fetch_array($parsed, OCI_ASSOC);
                 $asm_email = $row['EMAIL_ADDR'];
