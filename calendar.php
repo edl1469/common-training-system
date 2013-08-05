@@ -24,6 +24,7 @@ if (!$mysql_connect) {
     mysql_select_db(MYSQL_DBS, $mysql_connect);
 
     $append     = (isset($_GET['admin'])) ? "?admin=true" : '';
+    $appendtoo  = (isset($_GET['admin'])) ? "&admin=true" : '';
     $back_link  = "<div id='back'>";
     $back_link .= (isset($_GET['admin']))
             ? "<a href='admin/index.php'>Return to Control Panel</a></div>"
@@ -177,7 +178,7 @@ if (!$mysql_connect) {
                         }
                     }
                 }
-                $html .= "<br /><br /><a href='details.php?id={$tid}' class='tt'>{$title}"
+                $html .= "<br /><br /><a href='details.php?id={$tid}{$appendtoo}' class='tt'>{$title}"
                         ."<span class='tooltip'><span class='top'></span><span class='middle'>{$desc}<br>{$time}<br>"
                         ."Location: {$location}<br>Trainer: {$trainer}</span><span class='bottom'></span></span></a>"
                         ."<a href='#' class='tt' id='info'><span class='tooltip'><span class='top'></span>"
