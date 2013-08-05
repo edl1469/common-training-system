@@ -53,7 +53,7 @@ if ($mysqli->connect_error) {
         $result->free();
 
         // Start page code
-        $html  = file_get_contents(CHUNK);
+        $html  = file_get_contents(CHUNK1);
         $html .= "<link href='".URL_COMMON."/css/printable.css' rel='stylesheet' type='text/css' />";
         $html .= file_get_contents(CHUNK2);
         $html .= "<h1>{$crs_name}</h1><p><strong>Date:</strong> {$crs_datef}, ";
