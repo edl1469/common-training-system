@@ -76,10 +76,10 @@ if ($mysqli->connect_error) {
     $parsed    = oci_parse($oracle_connect, "SELECT EMAIL_ADDR,NAME FROM sysadm.PS_LB_HR_WO_ASM_VW WHERE emplid='{$reg_empid}'");
     $product   = oci_execute($parsed);
     if (!$product) {
-        $e = oci_error($parsed);
+        $e = (empty(oci_error($parsed)))? oci_error(): oci_error($parsed);
         $h = "MIME-Version: 1.0\r\nFrom: training@csulb.edu";
-        $m = "Environment: ".ENVIRONMENT."\nHost: ".ORACLE_SVR."\nDB: ".ORACLE_DBS."\nOCI Error: ".htmlentities($e['message']);
-        $s = "Oracle View Error: ".DIR;
+        $m = "Environment: ".ENVIRONMENT."\nHost: ".ORACLE_SVR."\nDB: ".ORACLE_DBS."\nOCI Error: ".htmlentities($e['message'])."\nSQL: ".htmlentities($e['sqltext']);
+        $s = "Oracle View Error: ".$_SERVER['REQUEST_URI'];
         mail('wdc@csulb.edu', $s, $m, $h);
     } else {
         $row = oci_fetch_array($parsed, OCI_ASSOC);
