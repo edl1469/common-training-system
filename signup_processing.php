@@ -76,7 +76,11 @@ if ($mysqli->connect_error) {
     $parsed    = oci_parse($oracle_connect, "SELECT EMAIL_ADDR,NAME FROM sysadm.PS_LB_HR_WO_ASM_VW WHERE emplid='{$reg_empid}'");
     $product   = oci_execute($parsed);
     if (!$product) {
-        $e = (empty(oci_error($parsed)))? oci_error(): oci_error($parsed);
+        // Cannot combine following function in Write context; must separate.
+        $e = oci_error($parsed);
+        if (empty($e)) {
+            $e = oci_error();
+        }
         $h = "MIME-Version: 1.0\r\nFrom: training@csulb.edu";
         $m = "Environment: ".ENVIRONMENT."\nHost: ".ORACLE_SVR."\nDB: ".ORACLE_DBS."\nOCI Error: ".htmlentities($e['message'])."\nSQL: ".htmlentities($e['sqltext']);
         $s = "Oracle View Error: ".$_SERVER['REQUEST_URI'];
