@@ -52,7 +52,7 @@ if ($mysqli->connect_error) {
   $mysqli->close();
 
   // ########## Prepare content
-  $html .= $back_link."<h1>Course Registration</h1>\n";
+  $html = $back_link."<h1>Course Registration</h1>\n";
   $html .= "<form method='post' name='signup_form' action='signup_processing.php' onsubmit='return validateForm();'>\n";
   $html .= "<div  class='colA'><p>The course details are as follows:</p>";
   $html .= "<ul><li>Name: {$crs_name}</li><li>Date: {$crs_datef}</li><li>Time: {$crs_start} - {$crs_end}</li>";

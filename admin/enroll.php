@@ -12,72 +12,63 @@
  * @author     Ed Lara <Ed.Lara@csulb.edu>
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
-
-// Set-up files.
 session_start();
 require_once '../_config.php';
 require_once '../_connect-mysqli.php';
 
 // Stop and redirect, if any database resources are unavailable.
 if ($mysqli->connect_error) {
-    header("Location: ".URL_APP."/resource-unavailable.php?err=MySQLi%20Connect&admin=true");
+  header("Location: ".URL_APP."/resource-unavailable.php?err=MySQLi%20Connect&admin=true");
 } else {
 
-    // Pull POST / GET variables.
-    $tid        = (isset($_GET['TID']))? $_GET['TID']: $_POST['course'];
-    $errormsg   = (isset($_GET['dup']))? 'This person has been previously registered.': '';
-    $successmsg = (isset($_GET['success']))? 'The person was successfully registered.': '';
+  // Pull POST / GET variables.
+  $tid = (isset($_GET['TID']))? $_GET['TID']: $_POST['course'];
+  $errormsg = (isset($_GET['dup']))? 'This person has been previously registered.': '';
+  $successmsg = (isset($_GET['success']))? 'The person was successfully registered.': '';
 
-    // Pull and parse course information.
-    $tid       = $mysqli->real_escape_string($tid);
-    $result    = $mysqli->query("SELECT * FROM Training WHERE TID='{$tid}'");
-    $row       = $result->fetch_assoc();
-    $crs_date  = $row['TDate'];
-    $crs_datef = date("l, F j, Y", strtotime($row['TDate']));
-    $crs_end   = date("g:i A", strtotime($row['TEndTime']));
-    $crs_instr = $row['Trainer'];
-    $crs_loc   = $row['Location'];
-    $crs_name  = $row['Description'];
-    $crs_seats = $row['TSeats'];
-    $crs_start = date("g:i A", strtotime($row['TStartTime']));
-    $result->free();
+  // Pull and parse course information.
+  $tid = $mysqli->real_escape_string($tid);
+  $result = $mysqli->query("SELECT * FROM Training WHERE TID='{$tid}'");
+  $row = $result->fetch_assoc();
+  $crs_date = $row['TDate'];
+  $crs_datef = date("l, F j, Y", strtotime($row['TDate']));
+  $crs_end = date("g:i A", strtotime($row['TEndTime']));
+  $crs_instr = $row['Trainer'];
+  $crs_loc = $row['Location'];
+  $crs_name = $row['Description'];
+  $crs_seats = $row['TSeats'];
+  $crs_start = date("g:i A", strtotime($row['TStartTime']));
+  $result->free();
 
-    // Pull and parse registrant information.
-    $registrants = "<p>No one is wait-listed in this course yet.</p>";
-    $tid         = $mysqli->real_escape_string($tid);
-    $result      = $mysqli->query("SELECT SID,FirstName,LastName FROM Trainees WHERE TID='{$tid}' AND Wait=1");
-    if ($result->num_rows > 0) {
-        $registrants = "<p>Click on the registrant name to enroll:</p><ol>";
-        while ($row = $result->fetch_assoc()) {
-            if ($crs_seats > 0) {
-                $registrants .= "<li><a href='enroll_processing.php?TID={$tid}&SID={$row['SID']}'>"
-                    ."{$row['LastName']}, {$row['FirstName']}</a></li>";
-            } else {
-                $registrants .= "<li>{$row['LastName']}, {$row['FirstName']}</li>";
-            }
-        }
-        $registrants .= '</ol>';
+  // Pull and parse registrant information.
+  $registrants = "<p>No one is wait-listed in this course yet.</p>";
+  $tid = $mysqli->real_escape_string($tid);
+  $result = $mysqli->query("SELECT SID,FirstName,LastName FROM Trainees WHERE TID='{$tid}' AND Wait=1");
+  if ($result->num_rows > 0) {
+    $registrants = "<p>Click on the registrant name to enroll:</p><ol>";
+    while ($row = $result->fetch_assoc()) {
+      if ($crs_seats > 0) {
+        $registrants .= "<li><a href='enroll_processing.php?TID={$tid}&SID={$row['SID']}'>"."{$row['LastName']}, {$row['FirstName']}</a></li>";
+      } else {
+        $registrants .= "<li>{$row['LastName']}, {$row['FirstName']}</li>";
+      }
     }
-    $result->free();
+    $registrants .= '</ol>';
+  }
+  $result->free();
+  $mysqli->close();
 
-    // Start page code
-    $html  = file_get_contents(CHUNK1);
-    $html .= "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n";
-    $html .= "<link href='".URL_COMMON."/css/details.css' rel='stylesheet' type='text/css' />\n";
-    $html .= "<link href='".URL_COMMON."/css/signup.css' rel='stylesheet' type='text/css' />\n";
-    $html .= "<script src='".URL_COMMON."/js/signup.js' type='text/javascript'></script>\n";
-    $html .= file_get_contents(CHUNK2);
-    $html .= BACKLINK_ADMIN."<h1>Course Enrollment</h1>";
-
-    $html .= "<form method='post' name='signup_form' action='enroll_processing.php' onsubmit='return validateForm();'>\n";
-    $html .= "<div  class='colA'><p>The course details are as follows:</p>";
-    $html .= "<ul><li>Name: {$crs_name}</li><li>Date: {$crs_datef}</li><li>Time: {$crs_start} - {$crs_end}</li>";
-    $html .= "<li>Location: {$crs_loc}</li><li>Instructor: {$crs_instr}</li><li>Available Seats: {$crs_seats}</li></ul></div>\n";
-    $html .= "<div class='colB'><div id='errorList'></div>\n<div id='message'>{$successmsg}{$errormsg}</div></div>\n";
-    $html .= "<div style='clear: both;'></div>";
-    if ($crs_seats > 0) {
-        $html .= "<div class='colA'><h2>Manual Enrollment</h2>\n";
-        $html .= "<p>Please consider all fields as <strong>required</strong>, unless otherwise marked.</p>
+  // ########## Prepare content
+  $html = BACKLINK_ADMIN."<h1>Course Enrollment</h1>";
+  $html .= "<form method='post' name='signup_form' action='enroll_processing.php' onsubmit='return validateForm();'>\n";
+  $html .= "<div  class='colA'><p>The course details are as follows:</p>";
+  $html .= "<ul><li>Name: {$crs_name}</li><li>Date: {$crs_datef}</li><li>Time: {$crs_start} - {$crs_end}</li>";
+  $html .= "<li>Location: {$crs_loc}</li><li>Instructor: {$crs_instr}</li><li>Available Seats: {$crs_seats}</li></ul></div>\n";
+  $html .= "<div class='colB'><div id='errorList'></div>\n<div id='message'>{$successmsg}{$errormsg}</div></div>\n";
+  $html .= "<div style='clear: both;'></div>";
+  if ($crs_seats > 0) {
+    $html .= "<div class='colA'><h2>Manual Enrollment</h2>\n";
+    $html .= "<p>Please consider all fields as <strong>required</strong>, unless otherwise marked.</p>
         <fieldset><legend>Enrollment Form</legend>
         <div>
             <p><label for='fname'>First Name</label> <input type='text' name='fname' /></p>
@@ -117,14 +108,15 @@ if ($mysqli->connect_error) {
                 <input type='submit' name='submit' id='submit' value='Enroll'>
             </p>
             </fieldset></div>\n";
-        $html .= "<div class='colB'><h2>Wait-listed Registrants</h2>{$registrants}</div>\n";
-    } else {
-        $html .= "<p>We cannot enroll someone until a seat is available.</p>\n";
-    }
-    $html .= "</form>\n";
-    $html .= file_get_contents(CHUNK3);
-    $html .= file_get_contents(CHUNK4);
+    $html .= "<div class='colB'><h2>Wait-listed Registrants</h2>{$registrants}</div>\n";
+  } else {
+    $html .= "<p>We cannot enroll someone until a seat is available.</p>\n";
+  }
+  $html .= "</form>\n";
 
-    $mysqli->close();
-    print $html;
+  // ########## Write content
+  $page['content'] = $html;
+  $page['css'] = "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n"."<link href='".URL_COMMON."/css/details.css' rel='stylesheet' type='text/css' />\n"."<link href='".URL_COMMON."/css/signup.css' rel='stylesheet' type='text/css' />\n";
+  $page['js'] = "<script src='".URL_COMMON."/js/signup.js' type='text/javascript'></script>\n";
+  include_once (TEMPLATE);
 }
