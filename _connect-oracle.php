@@ -13,7 +13,7 @@
  * @link      http://daf.csulb.edu/
  */
 
- /**
+/**
  * Set constants according to environment.
  */
 define('ORACLE_SVR', $config_app[ENVIRONMENT]['oraclehst']);

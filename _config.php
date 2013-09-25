@@ -37,24 +37,37 @@ define('ENVIRONMENT', apache_getenv("HTTPD_ENV"));
  * The order in which these are created IS important.
  */
 $config_app = parse_ini_file("_app.ini.php", true);
-define('DIR',            '/'.$config_app['common']['appdir']);
-define('PATH_PARENT',    $config_app['common']['localdocroot']."/".$config_app['common']['parentdir']);
-define('PATH_APP',       PATH_PARENT.DIR);
-define('PATH_COMMON',    PATH_PARENT.'/'.$config_app['common']['assetsdir']);
-define('PATH_GROUP',     $config_app['common']['externalwebroot']);
-define('NAME_GROUP',     $config_app['common']['appname']);
-define('APP_HOST',       'https://'.$config_app[ENVIRONMENT]['apphost']);
-define('URL_PARENT',     APP_HOST."/".$config_app['common']['parentdir']);
-define('URL_APP',        URL_PARENT.DIR);
-define('URL_COMMON',     URL_PARENT."/".$config_app['common']['assetsdir']);
-define('URL_GROUP',      'http://'.$config_app[ENVIRONMENT]['externalhost'].PATH_GROUP);
+define('DIR', '/'.$config_app['common']['appdir']);
+define('PATH_PARENT', $config_app['common']['localdocroot']."/".$config_app['common']['parentdir']);
+define('PATH_APP', PATH_PARENT.DIR);
+define('PATH_COMMON', PATH_PARENT.'/'.$config_app['common']['assetsdir']);
+define('PATH_GROUP', $config_app['common']['externalwebroot']);
+define('NAME_GROUP', $config_app['common']['appname']);
+define('APP_HOST', 'https://'.$config_app[ENVIRONMENT]['apphost']);
+define('URL_PARENT', APP_HOST."/".$config_app['common']['parentdir']);
+define('URL_APP', URL_PARENT.DIR);
+define('URL_COMMON', URL_PARENT."/".$config_app['common']['assetsdir']);
+define('URL_GROUP', 'http://'.$config_app[ENVIRONMENT]['externalhost'].PATH_GROUP);
 define('BACKLINK_ADMIN', "<div id='back'><a href='".URL_APP."/admin/'>Return to Control Panel</a></div>");
-define('BACKLINK_APP',   "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>");
-define('MAIL_GROUP',     $config_app['common']['mailaddress']);
-define('CHUNK1',         PATH_COMMON.'/'.$config_app['common']['guifile'].'1.php');
-define('CHUNK2',         PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
-define('CHUNK3',         PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
-define('CHUNK4',         PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
+define('BACKLINK_APP', "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>");
+define('MAIL_GROUP', $config_app['common']['mailaddress']);
+define('CHUNK1', PATH_COMMON.'/'.$config_app['common']['guifile'].'1.php');
+define('CHUNK2', PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
+define('CHUNK3', PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
+define('CHUNK4', PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
+define('TEMPLATE', PATH_COMMON.'/gui-combined.php');
+
+/**
+ * Default templating variables. NO NEED TO EDIT!
+ *
+ * These are here only in case they are not set in the file, specifically. Used in gui-combined.php file.
+ */
+$page['css'] = '<!-- No CSS Inserted. -->';
+$page['content'] = '<!-- No Content Inserted. -->';
+$page['crumbs'] = '<!-- No Breadcrumbs Inserted. -->';
+$page['js'] = '<!-- No JavaScripts Inserted. -->';
+$page['menu'] = '<!-- No Menu Inserted. -->';
+$page['title'] = NAME_GROUP.' Workshops';
 
 /**
  * Sets the default timezone used by all date/time functions
@@ -64,4 +77,4 @@ date_default_timezone_set('America/Los_Angeles');
 /**
  * Does ASM get emailed when a user signs up for a workshop? Set in _app.ini.php file.
  */
-$config_alertASM = (boolean) $config_app['common']['alertasm'];
+$config_alertASM = (boolean)$config_app['common']['alertasm'];
