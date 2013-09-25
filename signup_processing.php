@@ -111,9 +111,8 @@ if ($mysqli->connect_error) {
     $to .= ", {$asm_email}";
   }
   mail($to, 'Training Registration Confirmation', $msg, $headers);
-
-  // Close all DB connections
   oci_close($oracle_connect);
   $mysqli->close();
+
   header("Location: confirm.php");
 }

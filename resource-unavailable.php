@@ -21,9 +21,10 @@ $back_link = "<div id='back'>";
 $back_link .= (isset($_GET['admin']))? "<a href='admin/index.php'>Return to Control Panel</a></div>": "<a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>";
 
 // ########## Prepare content
-$html .= $back_link."<h1>Application Difficulties</h1>";
+$html = $back_link."<h1>Application Difficulties</h1>";
 $html .= "<p>Unfortunately, our web application has experienced difficulties that "."it cannot overcome. Please return later to conduct your business.</p>";
-$html .= "<p>Please report the problem, if you are willing, to: "."<a href='mailto:wdc@csulb.edu?subject=".htmlentities(NAME_GROUP)."&body=Application%20Error:%20{$type}'>wdc@csulb.edu</a> ";
+$html .= "<p>Please report the problem, if you are willing, to: "
+    ."<a href='mailto:wdc@csulb.edu?subject=".htmlentities(NAME_GROUP)."&body=Application%20Error:%20{$type}'>wdc@csulb.edu</a> ";
 
 // ########## Write content
 $page['content'] = $html;
