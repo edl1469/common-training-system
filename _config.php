@@ -67,7 +67,7 @@ $page['content'] = '<!-- No Content Inserted. -->';
 $page['crumbs'] = '<!-- No Breadcrumbs Inserted. -->';
 $page['fauxbody'] = 'offices staff_training';
 $page['js'] = '<!-- No JavaScripts Inserted. -->';
-$page['menu'] = '<!-- No Menu Inserted. -->';
+$page['menu'] = null;
 $page['title'] = NAME_GROUP.' Workshops';
 
 /**
