@@ -55,7 +55,7 @@ define('CHUNK1', PATH_COMMON.'/'.$config_app['common']['guifile'].'1.php');
 define('CHUNK2', PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
 define('CHUNK3', PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
 define('CHUNK4', PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
-define('TEMPLATE', PATH_COMMON.'/gui-combined.php');
+define('TEMPLATE', $config_app['common']['localdocroot'].'/common/gui/gui-combined.php');
 
 /**
  * Default templating variables. NO NEED TO EDIT!
@@ -65,6 +65,7 @@ define('TEMPLATE', PATH_COMMON.'/gui-combined.php');
 $page['css'] = '<!-- No CSS Inserted. -->';
 $page['content'] = '<!-- No Content Inserted. -->';
 $page['crumbs'] = '<!-- No Breadcrumbs Inserted. -->';
+$page['fauxbody'] = 'offices staff_training';
 $page['js'] = '<!-- No JavaScripts Inserted. -->';
 $page['menu'] = '<!-- No Menu Inserted. -->';
 $page['title'] = NAME_GROUP.' Workshops';
