@@ -46,22 +46,22 @@ if ($mysqli->connect_error) {
         $result     = $mysqli->query("SELECT * FROM Trainees WHERE TID={$tid} AND Wait=0 ORDER BY LastName ASC");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $registrant .= "<tr><td valign='bottom'>{$row['FirstName']}</td><td valign='bottom'>{$row['LastName']}</td><td valign='bottom'>{$row['Dept']}</td>";
-                $registrant .= "<td valign='bottom'>{$row['EmpID']}</td><td><p class='sig lft'><span >&nbsp;</span></p></td></tr>";
+                $registrant .= "<div class='columns'>{$row['FirstName']}</div><div class='columns'>{$row['LastName']}</div><div class='columns'>{$row['Dept']}</div>";
+                $registrant .= "<div class='columns'>{$row['EmpID']}</div><div class='sigline'></div><div class='clearit'></div>";
             }
         }
         $result->free();
 
         // Start page code
         //$html  = file_get_contents(CHUNK1);
-        $html  = "<head>";
+        $html  = "<html><head>";
         $html .= "<link href='".URL_COMMON."/css/printable.css' rel='stylesheet' type='text/css' />";
         $html .="</head>";
         $html .= file_get_contents(CHUNK2);
         $html .= "<h2>{$crs_name}</h2><p><strong>Date:</strong> {$crs_datef}, ";
-        $html .= "<strong>Start Time:</strong> {$crs_start}</p><table width='100%' id='rostable'>";
-        $html .= "<tr><th>First</th><th>Last</th><th>Dept</th><th>Id</th><th class='lft'>Signature</th></tr>";
-        $html .= "{$registrant}</table><p id='backlink'><a href='".URL_APP."/admin/view.php?tid={$tid}'>Back</a></p>";
+        $html .= "<strong>Start Time:</strong> {$crs_start}</p>";
+        $html .= "<div class='columns_container'><div class='headings_row'><div class='columns'>First</div><div class='columns'>Last</div><div class='columns'>Dept</div><div class='columns'>Id</div><div class='sig'>Signature</div></div><div class='clearit'></div>";
+        $html .= "{$registrant}</div><p id='backlink'><a href='".URL_APP."/admin/view.php?tid={$tid}'>Back</a></p>";
         $html .= file_get_contents(CHUNK3);
         $html .= file_get_contents(CHUNK4);
     }
