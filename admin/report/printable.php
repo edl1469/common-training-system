@@ -46,19 +46,20 @@ if ($mysqli->connect_error) {
         $result     = $mysqli->query("SELECT * FROM Trainees WHERE TID={$tid} AND Wait=0 ORDER BY LastName ASC");
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $registrant .= "<tr><td>{$row['FirstName']}</td><td>{$row['LastName']}</td><td>{$row['Dept']}</td>";
-                $registrant .= "<td>{$row['EmpID']}</td><td><p class='sig'><span >&nbsp;</span></p></td></tr>";
+                $registrant .= "<tr><td class='col1'>{$row['FirstName']}</td><td class='col2'>{$row['LastName']}</td><td class='col3'>{$row['Dept']}</td>";
+                $registrant .= "<td class='col4'>{$row['EmpID']}</td><td><p class='sigline'><span >&nbsp;</span></p></td></tr>";
             }
         }
         $result->free();
 
         // Start page code
-        $html  = file_get_contents(CHUNK1);
+        //$html  = file_get_contents(CHUNK1);
+        $html  = "<html><head>";
         $html .= "<link href='".URL_COMMON."/css/printable.css' rel='stylesheet' type='text/css' />";
         $html .= file_get_contents(CHUNK2);
         $html .= "<h1>{$crs_name}</h1><p><strong>Date:</strong> {$crs_datef}, ";
         $html .= "<strong>Start Time:</strong> {$crs_start}</p><table width='100%' id='rostable'>";
-        $html .= "<tr><th>First Name</th><th>Last Name</th><th>Dept</th><th>Employee Id</th><th>Signature</th></tr>";
+        $html .= "<tr><th class='col1'>First</th><th class='col2'>Last</th><th class='col3'>Dept</th><th class='col4'>Id</th><th class='sig'>Signature</th></tr>";
         $html .= "{$registrant}</table><p id='backlink'><a href='".URL_APP."/admin/view.php?tid={$tid}'>Back</a></p>";
         $html .= file_get_contents(CHUNK3);
         $html .= file_get_contents(CHUNK4);
