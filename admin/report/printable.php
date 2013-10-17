@@ -60,5 +60,5 @@ if ($mysqli->connect_error) {
   // ########## Write content
   $page['content'] = $html;
   $page['css'] = "<link href='".URL_COMMON."/css/printable.css' rel='stylesheet' type='text/css' />\n";
-  include_once (TEMPLATE);
+  include_once (TEMPLATE_BLANK);
 }
