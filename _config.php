@@ -56,6 +56,7 @@ define('CHUNK2', PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
 define('CHUNK3', PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
 define('CHUNK4', PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
 define('TEMPLATE', $config_app['common']['localdocroot'].'/common/gui/gui-combined.php');
+define('TEMPLATE_BLANK', $config_app['common']['localdocroot'].'/common/gui/gui-blank.php');
 
 /**
  * Default templating variables. NO NEED TO EDIT!
