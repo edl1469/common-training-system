@@ -61,11 +61,11 @@ if ($mysqli->connect_error) {
     $crs_start = $_POST['cstime'];
     $reg_email = $mysqli->real_escape_string($_POST['e_mail']);
     $reg_empdiv = $_POST['division'];
-    $reg_empdpt = $_POST['dept'];
+    $reg_empdpt = $mysqli->real_escape_string($_POST['dept']);
     $reg_empid = $_POST['emp_id'];
     $reg_ext = $_POST['extension'];
-    $reg_first = ucfirst($_POST['fname']);
-    $reg_last = ucfirst($_POST['lname']);
+    $reg_first = $mysqli->real_escape_string(ucfirst($_POST['fname']));
+    $reg_last = $mysqli->real_escape_string(ucfirst($_POST['lname']));
     $reg_status = $_POST['emp_status'];
 
     // Check for duplicate enrollment.
@@ -122,7 +122,6 @@ if ($mysqli->connect_error) {
       $mysqli->query("INSERT INTO Trainees ({$cols}) VALUES ({$vals})");
 
       // Send registration confirmation email.
-      // @TODO: Quick fix to stop ASM emails for Enrollment Services. Must be comprehensively done later.
       $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: training@csulb.edu";
       $msg = (empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
       $to = "{$reg_email}";

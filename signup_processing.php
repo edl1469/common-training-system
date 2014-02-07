@@ -32,11 +32,11 @@ if ($mysqli->connect_error) {
 
   $reg_email = $mysqli->real_escape_string($_POST['e_mail']);
   $reg_empdiv = $_POST['division'];
-  $reg_empdpt = $_POST['dept'];
+  $reg_empdpt = $mysqli->real_escape_string($_POST['dept']);
   $reg_empid = $_POST['emp_id'];
   $reg_ext = $_POST['extension'];
-  $reg_first = ucfirst($_POST['fname']);
-  $reg_last = ucfirst($_POST['lname']);
+  $reg_first = $mysqli->real_escape_string(ucfirst($_POST['fname']));
+  $reg_last = $mysqli->real_escape_string(ucfirst($_POST['lname']));
   $reg_status = $_POST['emp_status'];
 
   // Send away if already signed up for course.
@@ -99,7 +99,6 @@ if ($mysqli->connect_error) {
   $mysqli->query("INSERT INTO Trainees ( {$cols} ) VALUES ( {$vals} )");
 
   // Prepare and send appropriate email to registrant and ASM.
-  // @TODO: Quick fix to stop ASM emails for Enrollment Services. Must be comprehensively done later.
   $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: training@csulb.edu";
   if ($crs_wait) {
     $msg = "Thank you for your registration. You were put on a wait-list for *{$crs_name}* on *{$crs_date}*. "."You will be contacted before the event if a seat becomes available. Have a great day! ";
