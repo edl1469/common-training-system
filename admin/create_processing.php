@@ -46,6 +46,7 @@ if ($mysqli->connect_error) {
     $crs_short = $mysqli->real_escape_string($_POST['short_desc']);
     $crs_start = date("G:i", strtotime($pretty_start));
     $crs_trnr = $mysqli->real_escape_string($_POST['trainer']);
+    $crs_visbl = 1;
 
     // Construct suggested confirmation email text.
     $text = "<html><body><h3>Thank you for your enrollment.</h3><p>Your training session, ";
@@ -56,9 +57,9 @@ if ($mysqli->connect_error) {
     $text = $mysqli->real_escape_string($text);
 
     // Prepare and insert new course.
-    $cols = "TDate, IsPrivate, Description, TStartTime, TEndTime, TSeats, Email_Confirm,";
+    $cols = "TDate, IsPrivate, IsVisible, Description, TStartTime, TEndTime, TSeats, Email_Confirm,";
     $cols .= " Location, Trainer, Short_Description, Details, TWait";
-    $vals = "'{$crs_date}', {$crs_priv}, '{$crs_long}', '{$crs_start}', '{$crs_end}', {$crs_seat}, '{$text}', ";
+    $vals = "'{$crs_date}', {$crs_priv}, {$crs_visbl}, '{$crs_long}', '{$crs_start}', '{$crs_end}', {$crs_seat}, '{$text}', ";
     $vals .= "'{$crs_loc}', '{$crs_trnr}', '{$crs_short}', '{$crs_detl}', 0";
     $mysqli->query("INSERT INTO Training ( {$cols} ) VALUES ( {$vals} )");
 

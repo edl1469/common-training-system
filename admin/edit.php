@@ -36,6 +36,7 @@ if ($mysqli->connect_error) {
   $crs_seats = $row['TSeats'];
   $crs_short = $row['Short_Description'];
   $crs_start = date("g:i A", strtotime($row['TStartTime']));
+  $crs_visbl = $row['IsVisible'];
   $result->free();
 
   // Prepare form variables.
@@ -48,6 +49,7 @@ if ($mysqli->connect_error) {
   $start_merid_am = ($pretty_start[1] == 'AM')? " checked='checked'": '';
   $start_merid_pm = ($pretty_start[1] == 'PM')? " checked='checked'": '';
   $priv = ($crs_priv)? " checked='checked'": '';
+  $visible = ($crs_visbl)? " checked='checked'": '';
 
   // Prepare location list for form.
   $locationlist = "<option value=''>Select a Location</option>";
@@ -103,6 +105,8 @@ if ($mysqli->connect_error) {
             </p>
             <p><label for='private'>Is Private Event</label>
                 <input type='checkbox' class='close' name='private' value='1'{$priv} /> Yes</p>
+            <p><label for='visible'>Is Visible</label>
+                <input type='checkbox' class='close' name='visible' value='1'{$visible} /> Yes</p>
             <p><label for='seats'>Available Seats</label>
                 <input name='seats' size='5' maxlength='2' value='{$crs_seats}' /></p>
             <p><label for='location'>Location</label>
