@@ -42,13 +42,14 @@ if ($mysqli->connect_error) {
   $range = ($future_only)? 'only': 'and from the last ninety days';
 
   // Gather course information.
-  $query = "SELECT TID,TDate,Short_Description,TStartTime FROM Training WHERE TDate>='{$period}' ORDER BY TDate ASC";
+  $query = "SELECT TID,TDate,Short_Description,TStartTime,IsVisible FROM Training WHERE TDate>='{$period}' ORDER BY TDate ASC";
   $result = $mysqli->query($query);
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
       $day = strftime("%b %e %y", strtotime($row['TDate']));
       $time = " @ ".strftime("%l %p", strtotime($row['TStartTime']));
-      $options .= "<option value='{$row['TID']}'>{$row['Short_Description']} &nbsp; &nbsp; [ {$day}{$time} ]</option>";
+      $mark = (!$row['IsVisible'])? ' &nbsp; &empty;': '';
+      $options .= "<option value='{$row['TID']}'>{$row['Short_Description']} &nbsp; &nbsp; [ {$day}{$time} ]{$mark}</option>";
     }
   } else {
     $options = "<option value=''>No courses available.</option>";

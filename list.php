@@ -34,7 +34,7 @@ if ($mysqli->connect_error) {
   $td = $date["year"]."-{$m}-{$d}";
 
   // Execute SQL and parse results.
-  $result = $mysqli->query("SELECT * FROM Training WHERE TDate>='{$td}' ORDER BY Short_Description, TDate");
+  $result = $mysqli->query("SELECT * FROM Training WHERE TDate>='{$td}' AND IsVisible=1 ORDER BY Short_Description, TDate");
   if ($result->num_rows > 0) {
     $courses = '';
 

@@ -104,7 +104,7 @@ if (!$mysql_connect) {
 
       // If this date is found in the 'training' table, show the corresponding information.
       // @TODO: This query is run once for each day of the month, for every month! RUN ONCE!!!!!
-      $sql = "SELECT * FROM Training Where TDate='{$this_date}' ";
+      $sql = "SELECT * FROM Training Where TDate='{$this_date}' AND IsVisible=1 ";
       $result = mysql_query($sql);
 
       // If first week, fill with blank day spaces until first day.
