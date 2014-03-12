@@ -77,7 +77,7 @@ if ($mysqli->connect_error) {
             <p><label for='private'>Is Private Event</label>
                 <input type='checkbox' class='close' name='private' value='1' /> Yes</p>
             <p><label for='seats'>Available Seats</label>
-                <input name='seats' size='5' maxlength='2' value='16' /></p>
+                <input name='seats' size='5' maxlength='3' value='16' /></p>
             <p><label for='location'>Location</label>
                 <select name='location'>{$locationlist}</select></p>
             <p><label for='trainer'>Trainer</label>
