@@ -38,25 +38,19 @@ define('ENVIRONMENT', apache_getenv("HTTPD_ENV"));
  */
 $config_app = parse_ini_file("_app.ini.php", true);
 define('DIR', '/'.$config_app['common']['appdir']);
-define('PATH_PARENT', $config_app['common']['localdocroot']."/".$config_app['common']['parentdir']);
+define('PATH_PARENT', '/var/www/html/'.$config_app['common']['parentdir']);
 define('PATH_APP', PATH_PARENT.DIR);
-define('PATH_COMMON', PATH_PARENT.'/'.$config_app['common']['assetsdir']);
 define('PATH_GROUP', $config_app['common']['externalwebroot']);
 define('NAME_GROUP', $config_app['common']['appname']);
-define('APP_HOST', 'https://'.$config_app[ENVIRONMENT]['apphost']);
-define('URL_PARENT', APP_HOST."/".$config_app['common']['parentdir']);
-define('URL_APP', URL_PARENT.DIR);
-define('URL_COMMON', URL_PARENT."/".$config_app['common']['assetsdir']);
+define('URL_APP', '/'.$config_app['common']['parentdir'].DIR);
+define('URL_COMMON', "/common/cts");
+define('URL_FULL', 'https://'.$config_app[ENVIRONMENT]['apphost'].URL_APP);
 define('URL_GROUP', 'http://'.$config_app[ENVIRONMENT]['externalhost'].PATH_GROUP);
 define('BACKLINK_ADMIN', "<div id='back'><a href='".URL_APP."/admin/'>Return to Control Panel</a></div>");
 define('BACKLINK_APP', "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>");
 define('MAIL_GROUP', $config_app['common']['mailaddress']);
-define('CHUNK1', PATH_COMMON.'/'.$config_app['common']['guifile'].'1.php');
-define('CHUNK2', PATH_COMMON.'/'.$config_app['common']['guifile'].'2.php');
-define('CHUNK3', PATH_COMMON.'/'.$config_app['common']['guifile'].'3.php');
-define('CHUNK4', PATH_COMMON.'/'.$config_app['common']['guifile'].'4.php');
-define('TEMPLATE', $config_app['common']['localdocroot'].'/common/gui/gui-combined.php');
-define('TEMPLATE_BLANK', $config_app['common']['localdocroot'].'/common/gui/gui-blank.php');
+define('TEMPLATE', '/var/www/html/common/gui/gui-combined.php');
+define('TEMPLATE_BLANK', '/var/www/html/common/gui/gui-blank.php');
 
 /**
  * Default templating variables. NO NEED TO EDIT!

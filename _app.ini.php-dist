@@ -6,12 +6,9 @@
 alertasm        = false
 appdir          = "folder_where_files_located"
 appname         = "The Group Name"
-assetsdir       = "folder_name"
 externalwebroot = "/path/to/group/pages/"
-localdocroot    = "/path/to/webroot"
 mailaddress     = "emailaddress"
 parentdir       = "folder_containing_assetsdir_and_appdir"
-guifile         = "prepended_gui_file_string-"
 
 [development]
 apphost      = "localhost"
