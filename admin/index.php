@@ -42,10 +42,10 @@ if ($mysqli->connect_error) {
             <li><a href='../list.php?admin=true'>List View</a></li>
             <li><a href='../calendar.php?admin=true'>Calendar View</a></li>
         </ul>
-        <!--h2>Report Management</h2>
+        <h2>Report Management</h2>
     	<ul>
-    	   <li><a href='report/training_report.php'>Training Report</a></li>
-    	</ul-->
+    	   <li><a href='report.php'>Training Report</a></li>
+    	</ul>
       </div>";
 
   // ########## Write content
