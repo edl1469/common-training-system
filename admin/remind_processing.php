@@ -28,7 +28,7 @@ if ($mysqli->connect_error) {
   $tid = $mysqli->real_escape_string($tid);
   $result = $mysqli->query("SELECT Email FROM Trainees WHERE TID='{$tid}'");
   if ($result->num_rows > 0) {
-    $h = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: training@csulb.edu";
+    $h = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: ".MAIL_GROUP;
     $s = NAME_GROUP." Course Reminder";
 
     // @TODO: Create a queue to send email later.
