@@ -91,7 +91,7 @@ if ($mysqli->connect_error) {
         if (empty($e)) {
           $e = oci_error();
         }
-        $h = "MIME-Version: 1.0\r\nFrom: training@csulb.edu";
+        $h = "MIME-Version: 1.0\r\nFrom: ".MAIL_GROUP;
         $m = "Environment: ".ENVIRONMENT."\nHost: ".ORACLE_SVR."\nDB: ".ORACLE_DBS."\nOCI Error: "
             .htmlentities($e['message'])."\nSQL: ".htmlentities($e['sqltext']);
         $s = "Oracle View Error: ".$_SERVER['REQUEST_URI'];
@@ -122,13 +122,12 @@ if ($mysqli->connect_error) {
       $mysqli->query("INSERT INTO Trainees ({$cols}) VALUES ({$vals})");
 
       // Send registration confirmation email.
-      $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: training@csulb.edu";
+      $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: ".MAIL_GROUP;
       $msg = (empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
       $to = "{$reg_email}";
       if ($config_alertASM) {
         $to .= ", {$asm_email}";
       }
-      $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: training@csulb.edu";
       mail($to, 'Training Registration Confirmation', $msg, $headers);
     }
   }

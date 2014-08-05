@@ -79,7 +79,7 @@ if ($mysqli->connect_error) {
     if (empty($e)) {
       $e = oci_error();
     }
-    $h = "MIME-Version: 1.0\r\nFrom: training@csulb.edu";
+    $h = "MIME-Version: 1.0\r\nFrom: ".MAIL_GROUP;
     $m = "Environment: ".ENVIRONMENT."\nHost: ".ORACLE_SVR."\nDB: ".ORACLE_DBS."\nOCI Error: ".htmlentities($e['message'])."\nSQL: ".htmlentities($e['sqltext']);
     $s = "Oracle View Error: ".$_SERVER['REQUEST_URI'];
     mail('wdc@csulb.edu', $s, $m, $h);
@@ -99,7 +99,7 @@ if ($mysqli->connect_error) {
   $mysqli->query("INSERT INTO Trainees ( {$cols} ) VALUES ( {$vals} )");
 
   // Prepare and send appropriate email to registrant and ASM.
-  $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: training@csulb.edu";
+  $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: ".MAIL_GROUP;
   if ($crs_wait) {
     $msg = "Thank you for your registration. You were put on a wait-list for *{$crs_name}* on *{$crs_date}*. "."You will be contacted before the event if a seat becomes available. Have a great day! ";
   } else {
