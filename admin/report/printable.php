@@ -51,7 +51,7 @@ if ($mysqli->connect_error) {
     $mysqli->close();
 
     // ########## Prepare content
-    $html .= "<h1>{$crs_name}</h1><p><strong>Date:</strong> {$crs_datef}, ";
+    $html .= "<div class='no-print'>".BACKLINK_ADMIN."(This will not show on paper.)</div><h1>{$crs_name}</h1><p><strong>Date:</strong> {$crs_datef}, ";
     $html .= "<strong>Start Time:</strong> {$crs_start}</p><table width='100%' id='rostable'>";
     $html .= "<tr><th class='col1'>Name</th><th class='col3'>Dept</th><th class='col4'>Id</th><th class='sig'>Signature</th></tr>";
     $html .= "{$registrant}</table><p id='backlink'><a href='".URL_APP."/admin/view.php?tid={$tid}'>Back</a></p>";
@@ -59,6 +59,7 @@ if ($mysqli->connect_error) {
 
   // ########## Write content
   $page['content'] = $html;
-  $page['css'] = "<link href='".URL_COMMON."/css/printable.css' rel='stylesheet' type='text/css' />\n";
+  $page['css'] = "<link href='".URL_COMMON."/css/printable.css' rel='stylesheet' type='text/css' />\n
+        <style type='text/css'>@media print { .no-print, .no-print * { display: none !important; } }</style>\n";
   include_once (TEMPLATE_BLANK);
 }

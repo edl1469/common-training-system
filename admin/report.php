@@ -23,7 +23,7 @@ if ($mysqli->connect_error) {
     $msg = (isset($_GET['error']))? "<p style='color: red;'>The report has no results.</p>": '';
 
     // ########## Prepare content
-    $html = "<h1>".NAME_GROUP." Training Report</h1>";
+    $html = BACKLINK_ADMIN."<h1>".NAME_GROUP." Training Report</h1>";
     $html .= "{$msg}<form name='report' method='post' action='report_processing.php' id='treport'>
           <h3>Please select a date range for your report</h3>
           <fieldset>
