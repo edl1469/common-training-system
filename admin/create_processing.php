@@ -52,7 +52,7 @@ if ($mysqli->connect_error) {
     $text = "<html><body><h3>Thank you for your enrollment.</h3><p>Your training session, ";
     $text .= "<strong>{$crs_long}</strong>, will be held on ".date("l, F j, Y", strtotime($crs_date));
     $text .= " at {$pretty_start} to {$pretty_end} in {$crs_loc}.</p><p>To cancel a reservation, please visit ";
-    $text .= "<a href='".URL_APP."'>".NAME_GROUP."</a> and click '<strong>Manage Your Registrations</strong>'.</p>";
+    $text .= "<a href='".URL_FULL."'>".NAME_GROUP."</a> and click '<strong>Manage Your Registrations</strong>'.</p>";
     $text .= "<p>Thank you, ".NAME_GROUP." Group</p></body></html>";
     $text = $mysqli->real_escape_string($text);
 
