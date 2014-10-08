@@ -26,7 +26,7 @@ if ($mysqli->connect_error) {
   $html .= "<div class='colA'>
       	<h2>Enrollment Management</h2>
         <ul>
-            <li><a href='select.php?type=view'>View Roster</a></li>
+            <li><a href='preview.php'>View Roster</a></li>
             <li><a href='select.php?type=enroll'>Enroll Attendees</a></li>
         </ul>
         <h2>Communication Management</h2>
