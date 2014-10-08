@@ -36,6 +36,7 @@ if ($mysqli->connect_error) {
   $crs_seats = $row['TSeats'];
   $crs_short = $row['Short_Description'];
   $crs_start = date("g:i A", strtotime($row['TStartTime']));
+  $crs_reply = $row['course_email'];
   $crs_visbl = $row['IsVisible'];
   $result->free();
 
@@ -113,6 +114,8 @@ if ($mysqli->connect_error) {
                 <select name='location'>{$locationlist}</select></p>
             <p><label for='trainer'>Trainer</label>
                 <select name='trainer'>{$trainerlist}</select></p>
+            <p><label for='course_email'>Contact Email</label>
+                <input name='course_email' size='25' maxlength='50' value='{$crs_reply}' /> ( <span style='border-bottom: green 2px dotted;' title='If shared group email is not desired.'>Optional</span> )</p>
             <p><label class='next_line' for='confirm'>Confirmation Email Text</label>
                 <textarea name='confirm' cols='60' rows='18'>{$crs_email}</textarea></p>
             <p><input type='submit' name='submit' id='submit' value='Update Course'>

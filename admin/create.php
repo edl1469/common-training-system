@@ -82,6 +82,8 @@ if ($mysqli->connect_error) {
                 <select name='location'>{$locationlist}</select></p>
             <p><label for='trainer'>Trainer</label>
                 <select name='trainer'>{$trainerlist}</select></p>
+            <p><label for='course_email'>Contact Email</label>
+                <input name='course_email' size='25' maxlength='50' /> ( <span style='border-bottom: green 2px dotted;' title='If shared group email is not desired.'>Optional</span> )</p>
             <p><input type='submit' name='submit' id='submit' value='Create Course'></p>
             </fieldset></div>";
   $html .= "<div class='colB'><div id='errorList'></div>\n";
