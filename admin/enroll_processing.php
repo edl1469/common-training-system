@@ -104,8 +104,9 @@ if ($mysqli->connect_error) {
       oci_free_statement($parsed);
 
       // Pull course information.
-      $result = $mysqli->query("SELECT TSeats,Email_Confirm FROM Training Where TID='{$crs_id}'");
+      $result = $mysqli->query("SELECT TSeats,Email_Confirm,course_email FROM Training Where TID='{$crs_id}'");
       $row = $result->fetch_assoc();
+      $email_from = (!is_null($row['course_email']))? $row['course_email']: MAIL_GROUP;
       $email_msg = $row['Email_Confirm'];
       $newtotal = (int)$row['TSeats'] - 1;
       $result->free();
@@ -122,7 +123,7 @@ if ($mysqli->connect_error) {
       $mysqli->query("INSERT INTO Trainees ({$cols}) VALUES ({$vals})");
 
       // Send registration confirmation email.
-      $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: ".MAIL_GROUP;
+      $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
       $msg = (empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
       $to = "{$reg_email}";
       if ($config_alertASM) {
