@@ -59,5 +59,6 @@ CREATE TABLE `Training` (
   `Short_Description` varchar(50) DEFAULT NULL,
   `Details` text,
   `TWait` int(2) NOT NULL DEFAULT '0',
+  `course_email` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`TID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
