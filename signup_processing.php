@@ -47,8 +47,9 @@ if ($mysqli->connect_error) {
   $result->close();
 
   // Pull current course seat count and update variables.
-  $result = $mysqli->query("SELECT TSeats,Email_Confirm,TWait FROM Training Where TID='{$crs_id}'");
+  $result = $mysqli->query("SELECT TSeats,Email_Confirm,TWait,course_email FROM Training Where TID='{$crs_id}'");
   $row = $result->fetch_assoc();
+  $email_from = (!is_null($row['course_email']))? $row['course_email']: MAIL_GROUP;
   $email_msg = $row['Email_Confirm'];
   $newseats = (int)$row['TSeats'] - 1;
   $newwaits = (int)$row['TWait'] + $crs_wait;
@@ -99,7 +100,7 @@ if ($mysqli->connect_error) {
   $mysqli->query("INSERT INTO Trainees ( {$cols} ) VALUES ( {$vals} )");
 
   // Prepare and send appropriate email to registrant and ASM.
-  $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: ".MAIL_GROUP;
+  $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
   if ($crs_wait) {
     $msg = "Thank you for your registration. You were put on a wait-list for *{$crs_name}* on *{$crs_date}*. "."You will be contacted before the event if a seat becomes available. Have a great day! ";
   } else {
