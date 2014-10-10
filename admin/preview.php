@@ -40,6 +40,7 @@ if ($mysqli->connect_error) {
         'id' => $row['TID'],
         'date' => date("F j, Y - l", mktime(0, 0, 0, $bit[1], $bit[2], $bit[0])),
         'seats' => $row['TSeats'],
+        'waiters' => $row['TWait'],
       );
     }
 
@@ -47,7 +48,19 @@ if ($mysqli->connect_error) {
     while ($class = current($list)) {
       $courses .= '<h3>'.key($list).'</h3><ul>';
       foreach ($class as $event) {
-        $courses .= "<li><a href='view.php?tid={$event['id']}'>{$event['date']}</a> : {$event['seats']} seats open</li>";
+        $seat_text = 'No seats open';
+        if ($event['seats'] > 1) {
+            $seat_text = "{$event['seats']} seats open";
+        } elseif ($event['seats'] == 1) {
+            $seat_text = "1 seat open";
+        }
+        $wait_text = '';
+        if ($event['waiters'] > 1) {
+            $wait_text .= " and {$event['waiters']} people waiting";
+        } elseif ($event['waiters'] == 1) {
+            $wait_text .= " and 1 person waiting";
+        }
+        $courses .= "<li><a href='view.php?tid={$event['id']}'>{$event['date']}</a> : {$seat_text} {$wait_text}</li>";
       }
       $courses .= "</ul>\n";
       next($list);
@@ -58,7 +71,8 @@ if ($mysqli->connect_error) {
 
   // ########## Prepare content
   $html = BACKLINK_ADMIN."<h1>".NAME_GROUP." Course Catalog</h1>";
-  $html .= "<p>These are all of the courses currently scheduled for future dates.</p>";
+  $html .= "<h2>Preview the Enrollment</h2>";
+  $html .= "<p>These are the enrollment numbers for the courses currently scheduled for future dates.</p>";
   $html .= "{$courses}";
 
   // ########## Write content
