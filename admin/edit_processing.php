@@ -36,12 +36,13 @@ if ($mysqli->connect_error) {
   $crs_short = $mysqli->real_escape_string($_POST['short_desc']);
   $crs_start = date("G:i", strtotime($pretty_start));
   $crs_trnr = $mysqli->real_escape_string($_POST['trainer']);
+  $crs_reply = $mysqli->real_escape_string($_POST['course_email']);
   $crs_visbl = (isset($_POST['visible']))? 1: 0;
 
   // Prepare and update new course.
   $cols = "TDate='{$crs_date}', IsPrivate={$crs_priv}, IsVisible={$crs_visbl}, Description='{$crs_long}', TStartTime='{$crs_start}', "
       ."TEndTime='{$crs_end}', TSeats='{$crs_seat}', Email_Confirm='{$crs_email}', Location='{$crs_loc}', "
-      ."Trainer='{$crs_trnr}', Short_Description='{$crs_short}', Details='{$crs_detl}'";
+      ."Trainer='{$crs_trnr}', Short_Description='{$crs_short}', Details='{$crs_detl}', course_email='{$crs_reply}'";
   $mysqli->query("UPDATE Training SET {$cols} WHERE TID='{$crs_id}'");
   $mysqli->close();
 
