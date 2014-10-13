@@ -36,12 +36,19 @@ if ($mysqli->connect_error) {
     $crs_id = $mysqli->real_escape_string($_GET['TID']);
     $dbid = $mysqli->real_escape_string($_GET['SID']);
 
+    // Get registrant email.
+    $result = $mysqli->query("SELECT Email FROM Trainees WHERE SID='{$dbid}'");
+    $row = $result->fetch_assoc();
+    $reg_email = $row['Email'];
+    $result->free();
+
     // Get and parse attendance information.
-    $tid = $mysqli->real_escape_string($tid);
-    $result = $mysqli->query("SELECT TSeats,TWait FROM Training WHERE TID='{$crs_id}'");
+    $result = $mysqli->query("SELECT TSeats,TWait,Email_Confirm,course_email FROM Training WHERE TID='{$crs_id}'");
     $row = $result->fetch_assoc();
     $crs_seats = (int)$row['TSeats'];
     $crs_waits = (int)$row['TWait'];
+    $email_from = (!is_null($row['course_email']))? $row['course_email']: MAIL_GROUP;
+    $email_msg = $row['Email_Confirm'];
     $result->free();
 
     // Modify course seating counts.
@@ -51,6 +58,12 @@ if ($mysqli->connect_error) {
     // Now update registrant and course tables with attendance.
     $mysqli->query("UPDATE Trainees SET Wait=0,Attend=1 WHERE SID='{$dbid}'");
     $mysqli->query("UPDATE Training SET TSeats={$crs_seats},TWait={$crs_waits} WHERE TID='{$crs_id}'");
+
+    // Send registration confirmation email.
+    $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+    $msg = "You have been removed from the wait-list and enrolled in a ".NAME_GROUP." course.\r\n{$email_msg}\r\n";
+    $to = "{$reg_email}";
+    mail($to, 'Training Registration Status Change', $msg, $headers);
   } else {
 
     // Gather POST variables.
