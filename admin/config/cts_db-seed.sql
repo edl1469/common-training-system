@@ -5,3 +5,4 @@
 -- --------------------------------------------------------
 
 INSERT INTO `location` VALUES ('1', 'TBD');
+INSERT INTO `Trainers` VALUES ('1', 'TBA');
