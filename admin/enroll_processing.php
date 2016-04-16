@@ -88,15 +88,25 @@ if ($mysqli->connect_error) {
     $result->free();
 
     if ($reg_exists) {
-      header("Location: enroll.php?TID={$crs_id}&dup=1");
+      //header("Location: enroll.php?TID={$crs_id}&dup=1");
+    echo 'we have a dup';
+    exit;
     } else {
 
       // Pull ASM information.
+
       $asm_email = 'wdc@csulb.edu';
       $asm_name = 'Unknown';
       $query = "SELECT EMAIL_ADDR,NAME FROM sysadm.PS_LB_HR_WO_ASM_VW WHERE emplid='{$reg_empid}'";
       $parsed = oci_parse($oracle_connect, $query);
       $product = oci_execute($parsed);
+
+       $row = oci_fetch_array($parsed, OCI_ASSOC);
+        $asm_email = $row['EMAIL_ADDR'];
+        $asm_name = $row['NAME'];
+        echo $asm_name;
+
+
       if (!$product) {
 
         // Cannot combine following function in Write context; must separate.
@@ -149,4 +159,6 @@ if ($mysqli->connect_error) {
   $mysqli->close();
 
   header("Location: enroll.php?TID={$crs_id}&success=1");
+
+
 }
