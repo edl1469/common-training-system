@@ -37,9 +37,12 @@ if ($mysqli->connect_error) {
     $dbid = $mysqli->real_escape_string($_GET['SID']);
 
     // Get registrant email.
-    $result = $mysqli->query("SELECT Email FROM Trainees WHERE SID='{$dbid}'");
+    $result = $mysqli->query("SELECT Email,FirstName,LastName,EmpID FROM Trainees WHERE SID='{$dbid}'");
     $row = $result->fetch_assoc();
     $reg_email = $row['Email'];
+    $reg_first = $row['FirstName'];
+    $reg_last = $row['LastName'];
+    $reg_empid = $row['EmpID'];
     $result->free();
 
     // Get and parse attendance information.
@@ -64,6 +67,14 @@ if ($mysqli->connect_error) {
     $msg = "You have been removed from the wait-list and enrolled in a ".NAME_GROUP." course.\r\n{$email_msg}\r\n";
     $to = "{$reg_email}";
     mail($to, 'Training Registration Status Change', $msg, $headers);
+
+    // send confirmation email to administrator
+      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+      $admin_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
+      $admin_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
+      $admin_to = MAIL_GROUP;
+      mail($admin_to, 'Training Registration Confirmation',$admin_msg,$admin_headers);
+
   } else {
 
     // Gather POST variables.
@@ -87,11 +98,14 @@ if ($mysqli->connect_error) {
     $reg_exists = $result->num_rows;
     $result->free();
 
+
+
+
     if ($reg_exists) {
-      //header("Location: enroll.php?TID={$crs_id}&dup=1");
-    echo 'we have a dup';
-    exit;
+      header("Location: enroll.php?TID={$crs_id}&dup=1");
+        exit();
     } else {
+
 
       // Pull ASM information.
 
@@ -154,7 +168,13 @@ if ($mysqli->connect_error) {
       }
       mail($to, 'Training Registration Confirmation', $msg, $headers);
     }
-  }
+      // send confirmation email to administrator
+      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+      $admin_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
+      $admin_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
+      $admin_to = MAIL_GROUP;
+      mail($admin_to, 'Training Registration Confirmation',$admin_msg,$admin_headers);
+}
   oci_close($oracle_connect);
   $mysqli->close();
 

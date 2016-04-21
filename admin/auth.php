@@ -15,7 +15,7 @@ require_once '../_connect-mysqli.php';
     $result->free();
     if ($reg_exists) {
         $response = '<span style="color:red;" class="data">Duplicate record. Please Remove.</span>';
-    echo $response;
+
     }
 
     else{
@@ -48,22 +48,29 @@ require_once '../_connect-mysqli.php';
 
                     $info = @ldap_get_entries($ldapconn, $entry);
 
+                    if(count($info) == 2){
+
                     $response = '<span style="color:blue;" class="data">'.$info[0]['givenname'][0].'&nbsp;'.$info[0]['sn'][0].'</span>';
 
                     @ldap_close($ldapconn);
                 }
-
-            }
-
+                    else{
+                        $response = '<span style="color:red;">Invalid ID.</span>';
+                    }
         }
+
+
 
     }
 
 
-echo $response;
+
+
     }
 
 }
 
 
-
+}
+echo $response;
+}

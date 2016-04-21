@@ -93,6 +93,8 @@ if ($mysqli->connect_error) {
             </p>
             <p><label for='dept'>Department</label> <input type='text' name='dept' /></p>
             <p><label for='extension'>Phone / Extension</label> <input type='text' name='extension' /></p>
+            <p><input type='checkbox' id='notify_super' name='notify_super><label for='notify_super'>Check box if you wish to have a notifcation sent to your supervisor.</label></p>
+            <p id='spremail'><label for ='super_email'>Supervisor Email:</label><input type='text' name='super_email'></p>
             <p>
                 <input type='hidden' name='cdate' value='{$crs_date}'>
                 <input type='hidden' name='cetime' value='{$crs_end}'>
@@ -112,11 +114,15 @@ if ($mysqli->connect_error) {
     }
   }
   $html .= "</form>\n";
-
+  $html .= "<script type='text/javascript'>
+  $('#notify_super').click(function(){
+     $('#spremail').toggle();
+  });
+  </script>";
   // ########## Write content
   $page['content'] = $html;
   $page['css'] = "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n"
         ."<link href='".URL_COMMON."/css/signup.css' rel='stylesheet' type='text/css' />\n";
-  $page['js'] = "<script src='".URL_COMMON."/js/signup.js' type='text/javascript'></script>\n";
+  $page['js'] = "<script src='".URL_COMMON."/js/signup.js' type='text/javascript'></script>\n<script src='".URL_COMMON."/js/jquery.min.js' type='text/javascript'></script>\n";
   include_once (TEMPLATE);
 }

@@ -30,7 +30,7 @@ if ($mysqli->connect_error) {
     $email_from = (!is_null($row['course_email']))? $row['course_email']: MAIL_GROUP;
 
     // Gather registrant list and send the emails.
-    $result = $mysqli->query("SELECT Email FROM Trainees WHERE TID='{$tid}'");
+    $result = $mysqli->query("SELECT Email FROM Trainees WHERE TID='{$tid}' AND Wait = 0");
     if ($result->num_rows > 0) {
         $h = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
         $s = NAME_GROUP." Course Reminder";

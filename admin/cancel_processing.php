@@ -13,8 +13,8 @@
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
 session_start();
-require_once '_config.php';
-require_once '_connect-mysqli.php';
+require_once '../_config.php';
+require_once '../_connect-mysqli.php';
 
 // Stop and redirect, if any database resources are unavailable.
 if ($mysqli->connect_error) {
@@ -62,7 +62,7 @@ if ($mysqli->connect_error) {
       $row = $result->fetch_assoc();
       $email_from = (!is_null($row['course_email']))? $row['course_email']: MAIL_GROUP;
       $can_date = $row['TDate'];
-      $can_desc = "<p>A training session has been cancelled for the following : </p><p><strong>".$row['Description']."</strong></p>";
+      $can_desc = "<p>A training session has been cancelled for the following course: </p><p><strong>".$row['Description']."</strong></p>";
       $can_start = $row['TStartTime'];
       $can_end = $row['TEndTime'];
       $can_loc = $row['Location'];
@@ -70,16 +70,19 @@ if ($mysqli->connect_error) {
       $result->free();
       $mysqli->close();
 
-  // Send registration confirmation email.
+  // Send cancellation confirmation email.
       $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
-      $msg = (empty($can_desc))? "<p>A training session has been cancelled for the following : <strong>".NAME_GROUP." course.</strong></p>": $can_desc;
-      $msg .= "<p>The cancellation is for the following person: <strong>" .$reg_first. "&nbsp;" .$reg_last. "</strong></p>";
+      $msg = (empty($can_desc))? "<p>A training session has been cancelled for the following: <strong>".NAME_GROUP." course.</strong></p>": $can_desc;
+      $msg .= "<p>The cancellation is for: <strong>" .$reg_first. "&nbsp;" .$reg_last. "</strong></p>";
+      $msg .="<p>The cancellation was completed by the Training Administrator for this course. If you have any questions please contact the appropriate training adminsitrator.</p>";
       $msg .= "<p>Course Details: <ul><li>Date: " . $can_date. "</li><li> StartTime: ". $can_start . "</li><li> EndTime:" . $can_end." </li><li>Location: ".$can_loc. "</li></ul></p>";
 
-      $to = MAIL_GROUP;
+      $to = MAIL_GROUP. "," .$reg_email;
+
+
       mail($to, 'Training Cancellation Notification', $msg, $headers);
 
 
-  header("Location: cancel.php?success=1");
+  header("Location: cancel.php?success=1&tid={$reg_tid}");
 
 }

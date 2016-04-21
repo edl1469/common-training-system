@@ -33,6 +33,7 @@ if ($mysqli->connect_error) {
       break;
     case 'Remind' :
     case 'Edit' :
+    case 'Cancel':
     default :
       $future_only = 1;
   }

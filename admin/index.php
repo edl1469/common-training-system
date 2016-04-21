@@ -29,6 +29,7 @@ if ($mysqli->connect_error) {
             <li><a href='select.php?type=view'>View Roster</a></li>
             <li><a href='select.php?type=enroll'>Enroll Attendees</a></li>
             <li><a href='preview.php'>Preview Enrollment</a></li>
+            <li><a href='select.php?type=cancel'>Cancel Enrollment</a></li>
         </ul>
         <h2>Communication Management</h2>
         <ul>
