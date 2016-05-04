@@ -48,7 +48,9 @@ if ($mysqli->connect_error) {
     	<ul>
     	   <li><a href='report.php'>Training Report</a></li>
     	</ul>
-      </div>";
+      </div>
+
+      ";
 
   // ########## Write content
   $page['content'] = $html;

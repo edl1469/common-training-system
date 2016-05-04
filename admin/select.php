@@ -28,12 +28,14 @@ if ($mysqli->connect_error) {
   // Which action to peform?
   switch ($action) {
     case 'Enroll' :
+      $future_only = 1;
+        break;
     case 'View' :
       $future_only = 0;
       break;
     case 'Remind' :
     case 'Edit' :
-    case 'Cancel':
+    case 'Cancel' :
     default :
       $future_only = 1;
   }
@@ -44,6 +46,7 @@ if ($mysqli->connect_error) {
 
   // Gather course information.
   $query = "SELECT TID,TDate,Short_Description,TStartTime,IsVisible FROM Training WHERE TDate>='{$period}' ORDER BY TDate ASC";
+
   $result = $mysqli->query($query);
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

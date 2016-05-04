@@ -24,10 +24,11 @@ if ($mysqli->connect_error) {
 } else {
   // Gather POST variables.
   $crs_date = $_POST['cdate'];
-  $crs_end = $_POST['cetime'];
+  $crs_end = date("G:i", strtotime($_POST['cetime']));
   $crs_id = $mysqli->real_escape_string($_POST['tid']);
   $crs_name = $_POST['course'];
-  $crs_start = $_POST['cstime'];
+
+  $crs_start = date("G:i", strtotime($_POST['cstime']));
   $crs_wait = $_POST['wait'];
 
   $reg_email = $mysqli->real_escape_string($_POST['e_mail']);
