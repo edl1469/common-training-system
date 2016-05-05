@@ -29,16 +29,26 @@ if ($mysqli->connect_error) {
   switch ($action) {
     case 'Enroll' :
       $future_only = 1;
+        $label = 'Enroll';
+        break;
+    case 'Batch' :
+        $future_only =1;
+        $label = "Batch Enrollment";
         break;
     case 'View' :
       $future_only = 0;
+        $label = 'View';
       break;
     case 'Remind' :
+        $label="Remind";
     case 'Edit' :
+        $label = "Edit";
     case 'Cancel' :
+        $label = "Cancel";
     default :
       $future_only = 1;
   }
+
 
   $options = "<option value=''>Make a Selection</option>";
   $period = ($future_only)? date("Y-m-d"): date("Y-m-d", strtotime("-90 days"));
@@ -67,7 +77,7 @@ if ($mysqli->connect_error) {
   $html .= "<p>The courses listed are in the future {$range}.</p>";
   $html .= "<form name='select_form' method='post' action='".strtolower($action).".php' onsubmit='return validateForm();'>";
   $html .= "<select name='course'>{$options}</select> &nbsp; ";
-  $html .= "<input type='submit' value='{$action}' name='submit' id='submit' /><div id='errorList'></div></form>";
+  $html .= "<input type='submit' value='{$label}' name='submit' id='submit' /><div id='errorList'></div></form>";
 
   // ########## Write content
   $page['content'] = $html;
