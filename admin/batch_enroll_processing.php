@@ -103,7 +103,7 @@ for($i=0; $i< count($emp_array);$i++)
   oci_close($oracle_connect);
   $mysqli->close();
 
-  header("Location: batch_enroll.php?TID={$crs_id}&success=1");
+  header("Location: batch.php?TID={$crs_id}&success=1");
 
 }
 
