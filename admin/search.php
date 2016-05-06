@@ -13,8 +13,8 @@ require_once '../_config.php';
  * @author     Ed Lara <Ed.Lara@csulb.edu>
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
-  $html ="<p> This search feature can be used to perform a quick search by Employee ID, Course Description, First Name, or Last Name. The data will display as soon you start typing.</p>";
-  $html .= "<div id='search_pad'><p><label for='search'>Search: </label> <input type='text' name='search' id='srch'  /></p></div>";
+  $html ="<p id='introtext'> This search feature can be used to perform a quick search by Employee ID, Course Description, First Name, or Last Name. The data will display after 3 characters have been typed.</p>";
+  $html .= "<div id='search_pad'><label for='search' id='srchlabel'>Search: </label> <input type='text' autocomplete='off' name='search' id='srch'  /></div>";
   $html .="<table id='search' class='display' cellspacing='0' width='100%'>
             <thead>
             <tr>
@@ -31,7 +31,7 @@ require_once '../_config.php';
             $(document).on('keyup', 'input', function(){
 
        var srchdata = $('#srch').val();
-        console.log(srchdata);
+        if ($(this).val().length > 2){
         $.ajax({
             type: 'GET',
             url: 'search_process.php',
@@ -40,10 +40,14 @@ require_once '../_config.php';
 
                 $('#data').html(response);
 
-                console.log(response);
+
             }
 
         });
+        }else{
+            srchdata = '';
+            $('#data').html('');
+        }
         });
         </script>";
 
