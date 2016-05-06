@@ -1,0 +1,54 @@
+<?php
+require_once '../_config.php';
+/**
+ * Form to facilitate the reporting of existing user registrations.
+ *
+ * NOTE: This is a procedural page, preparing content as page processes.
+ *
+ * PHP version 5
+ *
+ * @category   ITSWebApplication
+ * @package    ESTrainingApp
+ * @author     Ed Lara <Ed.Lara@csulb.edu>
+ * @author     Steven Orr <Steven.Orr@csulb.edu>
+ */
+  $html = "<div id='search_pad'><p><label for='search'>Search: </label> <input type='text' name='search' id='srch'  /></p></div>";
+  $html .="<table id='search' class='display' cellspacing='0' width='100%'>
+            <thead>
+            <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Course</th>
+            <th>Date</th>
+            </tr>";
+  $html .= "<tbody id='data'>";
+  $html .= "</tbody>";
+
+  $html .= "</table></div>";
+  $html .= "<script type='text/javascript'>
+            $(document).on('keyup', 'input', function(){
+
+       var srchdata = $('#srch').val();
+        console.log(srchdata);
+        $.ajax({
+            type: 'GET',
+            url: 'search_process.php',
+            data: {keywords: srchdata},
+            success : function(response){
+
+                $('#data').html(response);
+
+                console.log(response);
+            }
+
+        });
+        });
+        </script>";
+
+  // ########## Write content
+  $page['content'] = $html;
+  $page['css'] = "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n"."<link href='".URL_COMMON."/css/details.css' rel='stylesheet' type='text/css' />\n"."<link href='".URL_COMMON."/css/signup.css' rel='stylesheet' type='text/css' />\n"."<link href='".URL_COMMON."/css/dataTable.min.css' rel='stylesheet' type='text/css' />\n";
+  $page['js'] = "<script src='".URL_COMMON."/js/jquery.min.js' type='text/javascript'></script>\n";
+
+  include_once (TEMPLATE);
+
