@@ -48,6 +48,7 @@ if ($mysqli->connect_error) {
         <h2>Report Management</h2>
     	<ul>
     	   <li><a href='report.php'>Training Report</a></li>
+    	   <li><a href='search.php'>Quick Search</a></li>
     	</ul>
       </div>
 

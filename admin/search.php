@@ -1,6 +1,7 @@
 <?php
 require_once '../_config.php';
 /**
+
  * Form to facilitate the reporting of existing user registrations.
  *
  * NOTE: This is a procedural page, preparing content as page processes.
@@ -12,7 +13,8 @@ require_once '../_config.php';
  * @author     Ed Lara <Ed.Lara@csulb.edu>
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
-  $html = "<div id='search_pad'><p><label for='search'>Search: </label> <input type='text' name='search' id='srch'  /></p></div>";
+  $html ="<p> This search feature can be used to perform a quick search by Employee ID, Course Description, First Name, or Last Name. The data will display as soon you start typing.</p>";
+  $html .= "<div id='search_pad'><p><label for='search'>Search: </label> <input type='text' name='search' id='srch'  /></p></div>";
   $html .="<table id='search' class='display' cellspacing='0' width='100%'>
             <thead>
             <tr>
