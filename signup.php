@@ -53,7 +53,7 @@ if ($mysqli->connect_error) {
 
   // ########## Prepare content
   $html = $back_link."<h1>Course Registration</h1>\n";
-  $html .= "<form method='post' name='signup_form' action='signup_processing.php' onsubmit='return validateForm();'>\n";
+  $html .= "<form method='post' name='signup_form' id='signup' action='signup_processing.php' onsubmit='return validateForm();'>\n";
   $html .= "<div  class='colA'><p>The course details are as follows:</p>";
   $html .= "<ul><li>Name: {$crs_name}</li><li>Date: {$crs_datef}</li><li>Time: {$crs_start} - {$crs_end}</li>";
   $html .= "<li>Location: {$crs_loc}</li><li>Instructor: {$crs_instr}</li><li>Available Seats: {$crs_seats}</li></ul></div>\n";
@@ -66,7 +66,7 @@ if ($mysqli->connect_error) {
         <div class='colA'><fieldset><legend>Enrollment Form</legend>
             <p><label for='fname'>First Name</label> <input type='text' name='fname' /></p>
             <p><label for='lname'>Last Name</label> <input type='text' name='lname' /></p>
-            <p><label for='e_mail'>Email</label> <input type='text' name='e_mail' /></p>
+            <p><label for='e_mail'>Email</label> <input type='text' name='e_mail' id='e_mail' /></p>
             <p><label for='emp_id'>Employee ID</label> <input type='text' name='emp_id' /></p>
             <p>
                 <label for='emp_status'>Employment Status</label>
@@ -118,7 +118,9 @@ if ($mysqli->connect_error) {
   $('#notify_super').click(function(){
      $('#spremail').toggle();
   });
-  </script>";
+  </script>
+
+  ";
   // ########## Write content
   $page['content'] = $html;
   $page['css'] = "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n"

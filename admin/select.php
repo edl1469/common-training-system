@@ -41,10 +41,13 @@ if ($mysqli->connect_error) {
       break;
     case 'Remind' :
         $label="Remind";
+        break;
     case 'Edit' :
         $label = "Edit";
+        break;
     case 'Cancel' :
         $label = "Cancel";
+        break;
     default :
       $future_only = 1;
   }
@@ -77,7 +80,7 @@ if ($mysqli->connect_error) {
   $html .= "<p>The courses listed are in the future {$range}.</p>";
   $html .= "<form name='select_form' method='post' action='".strtolower($action).".php' onsubmit='return validateForm();'>";
   $html .= "<select name='course'>{$options}</select> &nbsp; ";
-  $html .= "<input type='submit' value='{$label}' name='submit' id='submit' /><div id='errorList'></div></form>";
+  $html .= "<input type='submit' value='{$action}' name='submit' id='submit' /><div id='errorList'></div></form>";
 
   // ########## Write content
   $page['content'] = $html;
