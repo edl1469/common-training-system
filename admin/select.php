@@ -28,14 +28,30 @@ if ($mysqli->connect_error) {
   // Which action to peform?
   switch ($action) {
     case 'Enroll' :
+      $future_only = 1;
+        $label = 'Enroll';
+        break;
+    case 'Batch' :
+        $future_only =1;
+        $label = "Batch Enrollment";
+        break;
     case 'View' :
       $future_only = 0;
+        $label = 'View';
       break;
     case 'Remind' :
+        $label="Remind";
+        break;
     case 'Edit' :
+        $label = "Edit";
+        break;
+    case 'Cancel' :
+        $label = "Cancel";
+        break;
     default :
       $future_only = 1;
   }
+
 
   $options = "<option value=''>Make a Selection</option>";
   $period = ($future_only)? date("Y-m-d"): date("Y-m-d", strtotime("-90 days"));
@@ -43,6 +59,7 @@ if ($mysqli->connect_error) {
 
   // Gather course information.
   $query = "SELECT TID,TDate,Short_Description,TStartTime,IsVisible FROM Training WHERE TDate>='{$period}' ORDER BY TDate ASC";
+
   $result = $mysqli->query($query);
   if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

@@ -24,10 +24,11 @@ if ($mysqli->connect_error) {
 } else {
   // Gather POST variables.
   $crs_date = $_POST['cdate'];
-  $crs_end = $_POST['cetime'];
+  $crs_end = date("G:i", strtotime($_POST['cetime']));
   $crs_id = $mysqli->real_escape_string($_POST['tid']);
   $crs_name = $_POST['course'];
-  $crs_start = $_POST['cstime'];
+
+  $crs_start = date("G:i", strtotime($_POST['cstime']));
   $crs_wait = $_POST['wait'];
 
   $reg_email = $mysqli->real_escape_string($_POST['e_mail']);
@@ -38,11 +39,13 @@ if ($mysqli->connect_error) {
   $reg_first = $mysqli->real_escape_string(ucfirst($_POST['fname']));
   $reg_last = $mysqli->real_escape_string(ucfirst($_POST['lname']));
   $reg_status = $_POST['emp_status'];
+  $reg_super = (isset($_POST['super_email']))? $_POST['super_email']: '';
 
   // Send away if already signed up for course.
   $result = $mysqli->query("SELECT EmpID FROM Trainees WHERE Email='{$reg_email}' AND TID='{$crs_id}'");
   if ($result->num_rows > 0) {
     header("Location: signup.php?TID={$crs_id}&dup=1");
+    exit();
   }
   $result->close();
 
@@ -111,6 +114,23 @@ if ($mysqli->connect_error) {
     $to .= ", {$asm_email}";
   }
   mail($to, 'Training Registration Confirmation', $msg, $headers);
+
+  // send confirmation email to administrator
+      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+      $admin_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
+      $admin_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
+      $admin_to = MAIL_GROUP;
+      mail($admin_to, 'Training Registration Confirmation',$admin_msg,$admin_headers);
+
+// send confirmation email to supervisor if selected
+    if ($reg_super){
+      $super_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+      $super_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
+      $super_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
+      $super_to = $reg_super;
+      mail($super_to, 'Training Registration : Supervisor Notification',$super_msg,$super_headers);
+}
+
   oci_close($oracle_connect);
   $mysqli->close();
 

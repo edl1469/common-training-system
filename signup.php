@@ -53,7 +53,7 @@ if ($mysqli->connect_error) {
 
   // ########## Prepare content
   $html = $back_link."<h1>Course Registration</h1>\n";
-  $html .= "<form method='post' name='signup_form' action='signup_processing.php' onsubmit='return validateForm();'>\n";
+  $html .= "<form method='post' name='signup_form' id='signup' action='signup_processing.php' onsubmit='return validateForm();'>\n";
   $html .= "<div  class='colA'><p>The course details are as follows:</p>";
   $html .= "<ul><li>Name: {$crs_name}</li><li>Date: {$crs_datef}</li><li>Time: {$crs_start} - {$crs_end}</li>";
   $html .= "<li>Location: {$crs_loc}</li><li>Instructor: {$crs_instr}</li><li>Available Seats: {$crs_seats}</li></ul></div>\n";
@@ -66,7 +66,7 @@ if ($mysqli->connect_error) {
         <div class='colA'><fieldset><legend>Enrollment Form</legend>
             <p><label for='fname'>First Name</label> <input type='text' name='fname' /></p>
             <p><label for='lname'>Last Name</label> <input type='text' name='lname' /></p>
-            <p><label for='e_mail'>Email</label> <input type='text' name='e_mail' /></p>
+            <p><label for='e_mail'>Email</label> <input type='text' name='e_mail' id='e_mail' /></p>
             <p><label for='emp_id'>Employee ID</label> <input type='text' name='emp_id' /></p>
             <p>
                 <label for='emp_status'>Employment Status</label>
@@ -93,6 +93,8 @@ if ($mysqli->connect_error) {
             </p>
             <p><label for='dept'>Department</label> <input type='text' name='dept' /></p>
             <p><label for='extension'>Phone / Extension</label> <input type='text' name='extension' /></p>
+            <p><input type='checkbox' id='notify_super' name='notify_super><label for='notify_super'>Check box if you wish to have a notifcation sent to your supervisor.</label></p>
+            <p id='spremail'><label for ='super_email'>Supervisor Email:</label><input type='text' name='super_email'></p>
             <p>
                 <input type='hidden' name='cdate' value='{$crs_date}'>
                 <input type='hidden' name='cetime' value='{$crs_end}'>
@@ -112,11 +114,17 @@ if ($mysqli->connect_error) {
     }
   }
   $html .= "</form>\n";
+  $html .= "<script type='text/javascript'>
+  $('#notify_super').click(function(){
+     $('#spremail').toggle();
+  });
+  </script>
 
+  ";
   // ########## Write content
   $page['content'] = $html;
   $page['css'] = "<link href='".URL_COMMON."/css/form.css' rel='stylesheet' type='text/css' />\n"
         ."<link href='".URL_COMMON."/css/signup.css' rel='stylesheet' type='text/css' />\n";
-  $page['js'] = "<script src='".URL_COMMON."/js/signup.js' type='text/javascript'></script>\n";
+  $page['js'] = "<script src='".URL_COMMON."/js/signup.js' type='text/javascript'></script>\n<script src='".URL_COMMON."/js/jquery.min.js' type='text/javascript'></script>\n";
   include_once (TEMPLATE);
 }

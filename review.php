@@ -23,7 +23,7 @@ if ($mysqli->connect_error) {
   unset($_SESSION['emp']);
   unset($_SESSION['user']);
   $back_link = "<div id='back'><a href='".URL_APP."'>Return to ".NAME_GROUP."</a></div>";
-  $message = '<em>If you are unsure, submit the form and we will tell you if any exist.</em>';
+
 
   // If form submission, find their records.
   if (isset($_POST['submit'])) {
@@ -47,7 +47,7 @@ if ($mysqli->connect_error) {
   $html .= "<form action='review.php' method='post'>"."<p>Enter your information to view your upcoming "
       .NAME_GROUP." registrations.</p><fieldset>"."<p><label for='email'>Email </label> <input type='text' name='email' id='email' /></p>"
       ."<p><label for='empl'>Employee ID</label> <input type='text' name='empl' id='empl' /></p>"
-      ."<p><input type='submit' value='Enter' id='sub' name='submit' /></p></fieldset></form> <p>{$message}</p>";
+      ."<p><input type='submit' value='Enter' id='sub' name='submit' /></p></fieldset></form>";
 
   // ########## Write content
   $page['content'] = $html;

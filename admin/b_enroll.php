@@ -1,5 +1,9 @@
 <?php
+if (empty($_POST['emp_id'])){
+   $esc_campusid = $_GET['emp_id'];
+}
 
+if (!empty($esc_campusid)){
 /**
  * Processing the administrative course enrollment form.
  *
@@ -16,7 +20,6 @@
  * @author     Ed Lara <Ed.Lara@csulb.edu>
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
-session_start();
 require_once '../_config.php';
 require_once '../_connect-mysqli.php';
 require_once '../_connect-oracle.php';
@@ -37,12 +40,9 @@ if ($mysqli->connect_error) {
     $dbid = $mysqli->real_escape_string($_GET['SID']);
 
     // Get registrant email.
-    $result = $mysqli->query("SELECT Email,FirstName,LastName,EmpID FROM Trainees WHERE SID='{$dbid}'");
+    $result = $mysqli->query("SELECT Email FROM Trainees WHERE SID='{$dbid}'");
     $row = $result->fetch_assoc();
     $reg_email = $row['Email'];
-    $reg_first = $row['FirstName'];
-    $reg_last = $row['LastName'];
-    $reg_empid = $row['EmpID'];
     $result->free();
 
     // Get and parse attendance information.
@@ -67,14 +67,6 @@ if ($mysqli->connect_error) {
     $msg = "You have been removed from the wait-list and enrolled in a ".NAME_GROUP." course.\r\n{$email_msg}\r\n";
     $to = "{$reg_email}";
     mail($to, 'Training Registration Status Change', $msg, $headers);
-
-    // send confirmation email to administrator
-      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
-      $admin_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
-      $admin_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
-      $admin_to = MAIL_GROUP;
-      mail($admin_to, 'Training Registration Confirmation',$admin_msg,$admin_headers);
-
   } else {
 
     // Gather POST variables.
@@ -98,29 +90,16 @@ if ($mysqli->connect_error) {
     $reg_exists = $result->num_rows;
     $result->free();
 
-
-
-
     if ($reg_exists) {
       header("Location: enroll.php?TID={$crs_id}&dup=1");
-        exit();
     } else {
 
-
       // Pull ASM information.
-
       $asm_email = 'wdc@csulb.edu';
       $asm_name = 'Unknown';
       $query = "SELECT EMAIL_ADDR,NAME FROM sysadm.PS_LB_HR_WO_ASM_VW WHERE emplid='{$reg_empid}'";
       $parsed = oci_parse($oracle_connect, $query);
       $product = oci_execute($parsed);
-
-       $row = oci_fetch_array($parsed, OCI_ASSOC);
-        $asm_email = $row['EMAIL_ADDR'];
-        $asm_name = $row['NAME'];
-        echo $asm_name;
-
-
       if (!$product) {
 
         // Cannot combine following function in Write context; must separate.
@@ -168,17 +147,73 @@ if ($mysqli->connect_error) {
       }
       mail($to, 'Training Registration Confirmation', $msg, $headers);
     }
-      // send confirmation email to administrator
-      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
-      $admin_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
-      $admin_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
-      $admin_to = MAIL_GROUP;
-      mail($admin_to, 'Training Registration Confirmation',$admin_msg,$admin_headers);
-}
+  }
   oci_close($oracle_connect);
   $mysqli->close();
 
   header("Location: enroll.php?TID={$crs_id}&success=1");
-
-
 }
+
+
+
+
+
+//else {echo 'No good';}
+    // Check for duplicate enrollment.
+    //$result = $mysqli->query("SELECT EmpID FROM Trainees WHERE EmpID = '{$esc_campusid}' AND TID='{$crs_id}'");
+
+
+
+
+    //$row = $result->fetch_assoc();
+    //$reg_exists = $result->num_rows;
+    //$result->free();
+    //if ($reg_exists>1) {
+    //    $response = '<span style="color:red;" class="data">Duplicate Found.!!! Please Remove.</span>';
+
+    //}
+    //else {
+        //$response = 'CID Failed';
+    //}
+   // echo $response;
+
+/*if (!empty($esc_campusid)) {
+
+
+        $hostname = "ldaps://idm.csulb.edu/";
+        $ldapport = 636;
+
+        // Accounts with which to Bind
+        $binddn01 = 'CN=alertmgmt_service,OU=Users,OU=Infrastructure Support,DC=idm,DC=csulb,DC=edu';
+        $bindpwd01 = 'cbjM8ugF';
+        $search_basedn = "OU=Active,OU=People,DC=idm,DC=csulb,DC=edu";
+
+        $search_filter = "CN={$esc_campusid}";
+
+        $ldapconn = @ldap_connect($hostname, $ldapport);
+
+        if ($ldapconn) {
+
+            $ldapbind = ldap_bind($ldapconn, $binddn01, $bindpwd01);
+
+            // verify binding
+            if ($ldapbind) {
+
+                $entry = @ldap_search($ldapconn, $search_basedn, $search_filter);
+
+                // verify search
+                if ($entry) {
+
+                    $info = @ldap_get_entries($ldapconn, $entry);
+
+                    $response = '<span style="color:blue;" class="data">'.$info[0]['givenname'][0].'&nbsp;'.$info[0]['sn'][0].'</span>';
+
+                    @ldap_close($ldapconn);
+                }
+
+            }
+
+        }
+        echo $response;
+    }
+

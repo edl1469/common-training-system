@@ -29,6 +29,8 @@ if ($mysqli->connect_error) {
             <li><a href='select.php?type=view'>View Roster</a></li>
             <li><a href='select.php?type=enroll'>Enroll Attendees</a></li>
             <li><a href='preview.php'>Preview Enrollment</a></li>
+            <li><a href='select.php?type=cancel'>Cancel Enrollment</a></li>
+            <li><a href='select.php?type=batch'>Batch Enrollment</a></li>
         </ul>
         <h2>Communication Management</h2>
         <ul>
@@ -46,8 +48,11 @@ if ($mysqli->connect_error) {
         <h2>Report Management</h2>
     	<ul>
     	   <li><a href='report.php'>Training Report</a></li>
+    	   <li><a href='search.php'>Quick Search</a></li>
     	</ul>
-      </div>";
+      </div>
+
+      ";
 
   // ########## Write content
   $page['content'] = $html;

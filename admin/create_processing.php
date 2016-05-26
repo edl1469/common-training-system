@@ -46,7 +46,7 @@ if ($mysqli->connect_error) {
     $crs_short = $mysqli->real_escape_string($_POST['short_desc']);
     $crs_start = date("G:i", strtotime($pretty_start));
     $crs_trnr = $mysqli->real_escape_string($_POST['trainer']);
-    $crs_reply = $mysqli->real_escape_string($_POST['course_email']);
+    $crs_reply = (!empty($_POST['course_email'])) ? $mysqli->real_escape_string($_POST['course_email']) : null;
     $crs_visbl = 1;
 
     // Construct suggested confirmation email text.

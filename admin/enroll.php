@@ -25,7 +25,12 @@ if ($mysqli->connect_error) {
   $tid = (isset($_GET['TID']))? $_GET['TID']: $_POST['course'];
   $errormsg = (isset($_GET['dup']))? 'This person has been previously registered.': '';
   $successmsg = (isset($_GET['success']))? 'The person was successfully registered.': '';
-
+  if ($errormsg){
+      $style = "style='color:red;'";
+  }
+  if ($successmsg){
+      $style = "style='color:green;'";
+  }
   // Pull and parse course information.
   $tid = $mysqli->real_escape_string($tid);
   $result = $mysqli->query("SELECT * FROM Training WHERE TID='{$tid}'");
@@ -64,7 +69,7 @@ if ($mysqli->connect_error) {
   $html .= "<div  class='colA'><p>The course details are as follows:</p>";
   $html .= "<ul><li>Name: {$crs_name}</li><li>Date: {$crs_datef}</li><li>Time: {$crs_start} - {$crs_end}</li>";
   $html .= "<li>Location: {$crs_loc}</li><li>Instructor: {$crs_instr}</li><li>Available Seats: {$crs_seats}</li></ul></div>\n";
-  $html .= "<div class='colB'><div id='errorList'></div>\n<div id='message'>{$successmsg}{$errormsg}</div></div>\n";
+  $html .= "<div class='colB'><div id='errorList'></div>\n<div id='message' {$style}>{$successmsg}{$errormsg}</div></div>\n";
   $html .= "<div style='clear: both;'></div>";
   if ($crs_seats > 0) {
     $html .= "<div class='colA'><h2>Manual Enrollment</h2>\n";
