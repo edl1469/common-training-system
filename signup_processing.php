@@ -8,7 +8,7 @@
  * PHP version 5
  *
  * @category   ITSWebApplication
- * @package    ESTrainingApp
+ * @package    CommonTrainingApp
  * @author     Ed Lara <Ed.Lara@csulb.edu>
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
