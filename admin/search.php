@@ -15,7 +15,7 @@ require_once '../_config.php';
  */
   
 
-  $html = BACKLINK_ADMIN.."<h1>Quick Search</h1>\n";
+  $html = BACKLINK_ADMIN."<h1>Quick Search</h1>\n";
   $html .="<p id='introtext'> This search feature can be used to perform a quick search by Employee ID, Course Description, First Name, or Last Name. The data will display after 3 characters have been typed.</p>";
   $html .= "<div id='search_pad'><label for='search' id='srchlabel'>Search: </label> <input type='text' autocomplete='off' name='search' id='srch'  /></div>";
   $html .="<table id='search' class='display' cellspacing='0' width='100%'>
