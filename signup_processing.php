@@ -12,6 +12,7 @@
  * @author     Ed Lara <Ed.Lara@csulb.edu>
  * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
+ if (isset($_POST['submit'])){
 require_once '_config.php';
 require_once '_connect-mysqli.php';
 require_once '_connect-oracle.php';
@@ -40,6 +41,14 @@ if ($mysqli->connect_error) {
   $reg_last = $mysqli->real_escape_string(ucfirst($_POST['lname']));
   $reg_status = $_POST['emp_status'];
   $reg_super = (isset($_POST['super_email']))? $_POST['super_email']: '';
+
+
+  $cleanid = trim($reg_empid);
+
+  if (!is_int($cleanid)){
+    header("Location: signup.php?TID={$crs_id}&tip=true");
+    exit();
+  }
 
   // Send away if already signed up for course.
   $result = $mysqli->query("SELECT EmpID FROM Trainees WHERE Email='{$reg_email}' AND TID='{$crs_id}'");
@@ -136,3 +145,5 @@ if ($mysqli->connect_error) {
 
   header("Location: confirm.php");
 }
+}
+die('Direct access not permitted');
