@@ -35,6 +35,10 @@ if ($mysqli->connect_error) {
           ."with availability or join a Wait-list.</p>";
     $is_problem = true;
   }
+  elseif (isset($_GET['tip'])) {
+    $errormsg = "<p style='color:red';>Invalid Credentials entered.</p>";
+    $is_problem = true;
+  }
 
   // Pull and parse course information.
   $id = $mysqli->real_escape_string($id);
