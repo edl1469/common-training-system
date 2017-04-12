@@ -45,7 +45,7 @@ if ($mysqli->connect_error) {
 
   $cleanid = trim($reg_empid);
 
-  if (!is_int($cleanid)){
+  if (!is_numeric($cleanid)){
     header("Location: signup.php?TID={$crs_id}&tip=true");
     exit();
   }
