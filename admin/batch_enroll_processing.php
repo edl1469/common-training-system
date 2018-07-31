@@ -28,10 +28,10 @@ for($i=0; $i< count($emp_array);$i++)
  $info = @ldap_get_entries($ldapconn, $entry);
 
     $crs_date = $_POST['cdate'];
-    $crs_end = $_POST['cetime'];
+    $crs_end = date("G:i", strtotime($_POST['cetime']));
     $crs_id = $mysqli->real_escape_string($_POST['tid']);
     $crs_name = $_POST['course'];
-    $crs_start = $_POST['cstime'];
+    $crs_start = date("G:i", strtotime($_POST['cstime']));
     $reg_email = $info[0]['csulbemployeemail'][0];
     $reg_empdiv = $mysqli->real_escape_string($div_array[$i]);
     $reg_empdpt = addslashes($info[0]['department'][0]);
