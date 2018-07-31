@@ -91,6 +91,7 @@ if ($mysqli->connect_error) {
                     <option value='Administration and Finance'>Administration and Finance</option>
                     <option value='Athletics'>Athletics</option>
                     <option value='Auxiliary'>Auxiliary</option>
+                    <option value='Division of Information Technology'>Division of Information Technology</option>
                     <option value='Office of the President'>Office of the President</option>
                     <option value='Student Services'>Student Services</option>
                     <option value='University Relations &amp; Development'>University Relations &amp; Development</option>
