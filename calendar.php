@@ -30,7 +30,7 @@ if (!$mysql_connect) {
   // Keep track of the number of calendars printed.
   $date = getdate();
   // Returns an associative array containing the date information of the current local time.
-  $showmonths = 4;
+  $showmonths = 12;
   // Select how many months should be shown.
 
   // ########## Prepare content
