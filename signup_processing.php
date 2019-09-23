@@ -10,7 +10,6 @@
  * @category   ITSWebApplication
  * @package    CommonTrainingApp
  * @author     Ed Lara <Ed.Lara@csulb.edu>
- * @author     Steven Orr <Steven.Orr@csulb.edu>
  */
  if (isset($_POST['submit'])){
 require_once '_config.php';
@@ -62,6 +61,7 @@ if ($mysqli->connect_error) {
   $result = $mysqli->query("SELECT TSeats,Email_Confirm,TWait,course_email FROM Training Where TID='{$crs_id}'");
   $row = $result->fetch_assoc();
   $email_from = (!is_null($row['course_email']))? $row['course_email']: MAIL_GROUP;
+  $admin_mail = MAIL_GROUP;
   $email_msg = $row['Email_Confirm'];
   $newseats = (int)$row['TSeats'] - 1;
   $newwaits = (int)$row['TWait'] + $crs_wait;
@@ -112,7 +112,7 @@ if ($mysqli->connect_error) {
   $mysqli->query("INSERT INTO Trainees ( {$cols} ) VALUES ( {$vals} )");
 
   // Prepare and send appropriate email to registrant and ASM.
-  $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+  $headers = "MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$admin_mail}\r\n";
   if ($crs_wait) {
     $msg = "Thank you for your registration. You were put on a wait-list for *{$crs_name}* on *{$crs_date}*. "."You will be contacted before the event if a seat becomes available. Have a great day! ";
   } else {
@@ -125,10 +125,10 @@ if ($mysqli->connect_error) {
   mail($to, 'Training Registration Confirmation', $msg, $headers);
 
   // send confirmation email to administrator
-      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$email_from}\r\n";
+      $admin_headers ="MIME-Version: 1.0\r\nContent-type:text/html;charset=iso-8859-1\r\nFrom: {$admin_mail}\r\n";
       $admin_msg = "<p>This is a confirmation email for the following person: ". $reg_first. " &nbsp;".$reg_last."&nbsp;(".$reg_empid.")";
       $admin_msg .=(empty($email_msg))? "You have been enrolled in a ".NAME_GROUP." course.": $email_msg;
-      $admin_to = MAIL_GROUP;
+      $admin_to = $email_from;
       mail($admin_to, 'Training Registration Confirmation',$admin_msg,$admin_headers);
 
 // send confirmation email to supervisor if selected
